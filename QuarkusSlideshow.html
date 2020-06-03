@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+        @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+        @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+  
+        body {
+          font-family: 'Droid Serif';
+        }
+        h1, h2, h3 {
+          font-family: 'Yanone Kaffeesatz';
+          font-weight: 400;
+          margin-bottom: 0;
+        }
+        .remark-slide-content h1 { font-size: 3em; }
+        .remark-slide-content h2 { font-size: 2em; }
+        .remark-slide-content h3 { font-size: 1.6em; }
+        .footnote {
+          position: absolute;
+          bottom: 3em;
+        }
+        li p { line-height: 1.25em; }
+        .red { color: #fa0000; }
+        .large { font-size: 2em; }
+        a, a > code {
+          color: rgb(249, 38, 114);
+          text-decoration: none;
+        }
+        code {
+          background: #373832;
+          border-radius: 5px;
+        }
+        .pull-left {
+          float: left;
+          width: 47%;
+        }
+        .pull-right {
+          float: right;
+          width: 47%;
+        }
+        .pull-right ~ p {
+          clear: both;
+        }
+        #slideshow .slide .content code {
+          font-size: 0.8em;
+        }
+        #slideshow .slide .content pre code {
+          font-size: 0.9em;
+          padding: 15px;
+        }
+        .inverse {
+          background: #272822;
+          color: #777872;
+          text-shadow: 0 0 20px #333;
+        }
+        .inverse h1, .inverse h2 {
+          color: #f3f3f3;
+          line-height: 0.8em;
+        }
+  
+        /* Slide-specific styling */
+        #slide-inverse .footnote {
+          bottom: 12px;
+          left: 20px;
+        }
+        #slide-how .slides {
+          font-size: 0.9em;
+          position: absolute;
+          top:  151px;
+          right: 140px;
+        }
+        #slide-how .slides h3 {
+          margin-top: 0.2em;
+        }
+        #slide-how .slides .first, #slide-how .slides .second {
+          padding: 1px 20px;
+          height: 90px;
+          width: 120px;
+          -moz-box-shadow: 0 0 10px #777;
+          -webkit-box-shadow: 0 0 10px #777;
+          box-shadow: 0 0 10px #777;
+        }
+        #slide-how .slides .first {
+          background: #fff;
+          position: absolute;
+          top: 20%;
+          left: 20%;
+          z-index: 1;
+        }
+        #slide-how .slides .second {
+          position: relative;
+          background: #fff;
+          z-index: 0;
+        }
+  
+        /* Two-column layout */
+        .left-column {
+          color: #777;
+          width: 20%;
+          height: 92%;
+          float: left;
+        }
+          .left-column h2:last-of-type, .left-column h3:last-child {
+            color: #000;
+          }
+        .right-column {
+          width: 75%;
+          float: right;
+          padding-top: 1em;
+        }
+      </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+
+
+
+# Quarkus
+
+
+
+---
+
+
+
+layout: false
+
+# What is Quarkus?
+
+- Java framework optimized for kubernetes
+- Fast Startup (tens of milliseconds)
+- Low memory utilization
+- Smaller application and container image footprint
+
+.footnote[.red[*] https://developers.redhat.com/blog/2019/03/07/quarkus-next-generation-kubernetes-native-java-framework/]
+
+???
+- Fast Startup (tens of milliseconds) allows automatic scaling up and down of microservices on containers and Kubernetes as well as FaaS on-the-spot execution
+- Low memory utilization helps optimize container density
+---
+
+
+
+# Scaffolding
+
+```bash
+mvn io.quarkus:quarkus-maven-plugin:1.1.1.Final:create \
+    -DprojectGroupId=info.novatec \
+    -DprojectArtifactId=breakevencalculator \
+    -DclassName="info.novatec.BreakEvenCalculator" \
+    -Dpath="/run"
+```
+
+- or create via https://code.quarkus.io/
+
+---
+
+
+
+# BreakEvenFunction
+
+```java
+@Inject
+BreakEvenResponse response;
+
+@GET
+@Produces({MediaType.APPLICATION_JSON})
+public BreakEvenResponse calculate(@QueryParam double price, 
+                                   @QueryParam double fixedCost, 
+                                   @QueryParam double unitCost) {
+    response.breakEvenPoint = (int) Math.ceil(fixedCost / (price - unitCost));
+    return response;
+}
+```
+### Run the Application in development mode
+```bash
+./mvnw compile quarkus:dev
+```
+
+---
+
+
+
+template: inverse
+# Testing
+
+---
+.left-column[
+  ## Testing
+  ### - Creating a Test
+]
+.right-column[
+```java
+@Inject
+BreakEvenResponse response;
+
+@ParameterizedTest
+@CsvSource({
+        "20.00, 100.00, 10.00, 10",
+        "6.00, 1000.00, 4.00, 500",
+        "2.30, 333.33, 2.10, 1667",
+        "3.00, 8000.00, 1.50, 5334"}
+)
+public void testBreakEvenFunction(double price, double fixedCost, double unitCost, int breakEvenPoint) {
+    response.breakEvenPoint = breakEvenPoint;
+    given().queryParam("price", price)
+            .queryParam("fixedCost", fixedCost)
+            .queryParam("unitCost", unitCost)
+            .when().get("/run")
+            .then()
+            .statusCode(200)
+            .equals(response);
+}
+```
+]
+
+
+
+---
+
+
+
+.left-column[
+  ## Testing
+  ### - Creating a Test
+  ### - Run the test
+]
+.right-column[
+```bash
+./mvnw test
+```
+<img src="Screenshots/quarkustests.PNG" alt="test results"
+	title="test results" width="900" height="350" />
+
+]
+
+
+
+
+---
+
+
+
+template: inverse
+
+# Extensions
+
+
+
+---
+
+
+
+.left-column[
+  ## Extensions
+  ### - Health
+]
+.right-column[
+## Adding the package
+```bash
+./mvnw quarkus:add-extension -Dextensions="health"
+```
+
+### Or add following to pom.xml
+```xml
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-smallrye-health</artifactId>
+</dependency>
+```
+## Anotation
+
+- the liveness check accessible at /health/live
+    ```java
+    @Liveness
+    ``` 
+
+- the readiness check accessible at /health/ready
+    ```java 
+    @Readiness
+    ``` 
+
+]
+---
+.left-column[
+  ## Extensions
+  ### - Health
+]
+.right-column[
+
+## Implementing Health check
+
+```java
+@Liveness
+@ApplicationScoped
+public class SimpleHealthCheck 
+    implements HealthCheck {
+
+    @Override
+    public HealthCheckResponse call() {
+        return HealthCheckResponse.
+            up("Simple health check");
+    }
+}
+```  
+
+]
+
+
+---
+
+
+.left-column[
+  ## Extensions
+  ### - Health
+  ### - Metrics
+]
+.right-column[
+
+## Adding the package
+```bash
+./mvnw quarkus:add-extension -Dextensions="metrics"
+```
+
+## Anotation
+```java
+@Timed(name = "breakEvenTimer", description = "execution time of breakEvenFunction",
+            unit = MetricUnits.MILLISECONDS)
+```
+
+## Review generated metrics
+```
+localhost:8080/metrics/
+```
+]
+
+
+
+---
+
+
+
+template: inverse
+
+# Running & Packaging
+
+
+ 
+---
+
+
+
+.left-column[
+  ## Running & Packaging
+  ### - using maven
+]
+.right-column[
+
+- compile in development mode
+```bash
+./mvnw compile quarkus:dev
+```
+
+- package into native executable
+```bash
+ ./mvnw package -Pnative
+```
+    add to pom.xml
+    ```xml
+    <profiles>
+        <profile>
+            <id>native</id>
+            <properties>
+                <quarkus.package.type>native</quarkus.package.type>
+            </properties>
+        </profile>
+    </profiles>
+    ```
+
+
+]
+
+
+
+---
+
+
+
+.left-column[
+  ## Running & Packaging
+  ### - using maven
+  ### - using dockerfile
+]
+.right-column[
+
+```yaml
+## Stage 1 : build with maven builder image with native capabilities
+FROM quay.io/quarkus/centos-quarkus-maven:19.2.1 AS build
+COPY src /usr/src/app/src
+COPY pom.xml /usr/src/app
+USER root
+RUN chown -R quarkus /usr/src/app
+USER quarkus
+RUN mvn -f /usr/src/app/pom.xml -Pnative clean package
+
+## Stage 2 : create the docker final image
+FROM registry.access.redhat.com/ubi8/ubi-minimal
+WORKDIR /work/
+COPY --from=build /usr/src/app/target/*-runner /work/application
+RUN chmod 775 /work
+EXPOSE 8080
+CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
+```
+]
+
+
+---
+
+</textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js">
+<script>
+  var hljs = remark.highlighter.engine;
+</script>
+<script src="remark.language.js"></script>
+<script>
+  var slideshow = remark.create({
+      highlightStyle: 'monokai',
+      highlightLanguage: 'remark',
+      highlightLines: true
+    }) ;
+</script>
+</body>
+</html>
