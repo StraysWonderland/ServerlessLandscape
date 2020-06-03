@@ -50,16 +50,22 @@
 - only serverless from a user perspective  
 - avoid vendor lock-in
 - avoid limitations of cloud vendors 
+  - i.e. timeout
 - build functions and microservices in any languange with same deployment mechanism
   - lambda "only" supports java, node, python, c# and go
+
+### Knative
+
+
 ### OpenFaas
 
 
 - run on any public or private cloud
 - Run container based functions on own servers
-
 - runs on docker swarm or kubernetes
-  
+
+- configuration overhead?
+- architecture?
 
 #### References
 
@@ -74,6 +80,8 @@
 - hot containers for fast response time
 - one system to manage and operate for all applications
 
+
+- architecture?
 
 ## on FAAS
 ### Serverless Framework
