@@ -73,6 +73,9 @@
 
 ### FN Project
 
+The Fn project is, as the developers describe it on thei [homepage](https://fnproject.io/), an open-source container-native serverless platform that you can run anywhere.
+So wether you want to deploy serverless functions on a cloud vendor architecture or on-premise, Fn project delivers easy to use deployment of functions written in any programming language.
+
 - scaffolding
 - function development kits for mapping in and output
 - focus on ease of deployment on any cloud and on-premise
