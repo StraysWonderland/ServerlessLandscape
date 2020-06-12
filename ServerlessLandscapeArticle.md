@@ -4,6 +4,7 @@
  [serverless landscape](https://landscape.cncf.io/format=serverless)
 
 ---
+## TODO:
 
 - knative skalierung testen
 - Micronaut -> graalvm -> lambda
@@ -15,7 +16,10 @@
 
 - knative scale to zero kommt zu kubernetes?
 
+
 # what is serverless?
+
+quick description of what we consider as serverless functions.
 
 # Development
 
@@ -75,6 +79,36 @@
 
 The Fn project is, as the developers describe it on thei [homepage](https://fnproject.io/), an open-source container-native serverless platform that you can run anywhere.
 So wether you want to deploy serverless functions on a cloud vendor architecture or on-premise, Fn project delivers easy to use deployment of functions written in any programming language.
+
+
+#### Deployment workflow?
+[Getting started with FN Guide](https://fnproject.io/tutorials/JavaFDKIntroduction/)
+
+- setup server 
+    ```bash
+    fn start
+    ```
+
+- scaffolding per cli
+    ```bash
+    fn init --runtime java breakevencalculator
+    ```
+- edit code
+
+- Create your app
+    ```bash
+    fn create app breakeven-app
+    ```
+
+- deploy your function
+    ```bash
+    fn deploy --app breakeven-app --local
+    ```
+
+- invoke the deployed function
+    ```bash
+    fn invoke breakeven-app breakevencalculator
+    ```
 
 #### Benefits
 - scaffolding
