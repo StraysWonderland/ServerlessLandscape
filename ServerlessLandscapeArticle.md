@@ -50,10 +50,7 @@ quick description of what we consider as serverless functions.
 
 ---
 
-# Deployment
-
-
-# Anywhere
+# Deployment Anywhere
 
 - use language & infrastructure youre familiar with
 - one system to manage and operate for all applications
@@ -65,8 +62,17 @@ quick description of what we consider as serverless functions.
   - lambda "only" supports java, node, python, c# and go
 
 # Knative
+"Kubernetes-based platform to deploy and manage modern serverless workloads."
 
-
+## Benefits
+- Focused API with higher level abstractions for common app use-cases.
+- Stand up a scalable, secure, stateless service in seconds.
+- Loosely coupled features let you use the pieces you need.
+- Pluggable components let you bring your own logging and monitoring, networking, and service mesh.
+- Knative is portable: run it anywhere Kubernetes runs, never worry about vendor lock-in.
+- Idiomatic developer experience, supporting common patterns such as GitOps, DockerOps, ManualOps.
+- Knative can be used with common tools and frameworks such as Django, Ruby on Rails, Spring, and many more. 
+- 
 # OpenFaas
 OpenFaaS makes it easy for developers to deploy event-driven functions and microservices to Kubernetes without repetitive, boiler-plate coding. Package your code or an existing binary in a Docker image to get a highly scalable endpoint with auto-scaling and metrics.
 
@@ -78,14 +84,18 @@ OpenFaaS makes it easy for developers to deploy event-driven functions and micro
 - Auto-scales as demand increases
 
 
+## workflow
 
+https://github.com/openfaas/workshop
 
+## benfits
 - run on any public or private cloud
 - Run container based functions on own servers
 - runs on docker swarm or kubernetes
 
 - configuration overhead?
-- architecture?
+
+## architecture?
 
 ## References
 
@@ -137,14 +147,14 @@ So wether you want to deploy serverless functions on a cloud vendor architecture
 
 ## Drawbacks
 
---- 
-- architecture?
+
+## architecture?
 
 
 
 
 
-# on FAAS vendors
+# Deployment on FAAS vendors
 
 # Serverless Framework
 
