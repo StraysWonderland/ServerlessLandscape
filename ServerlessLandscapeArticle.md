@@ -68,6 +68,16 @@ quick description of what we consider as serverless functions.
 
 
 # OpenFaas
+OpenFaaS makes it easy for developers to deploy event-driven functions and microservices to Kubernetes without repetitive, boiler-plate coding. Package your code or an existing binary in a Docker image to get a highly scalable endpoint with auto-scaling and metrics.
+
+
+- Ease of use through UI portal and one-click install
+- Write functions in any language for Linux or Windows and package in Docker/OCI image format
+- Portable - runs on existing hardware or public/private cloud - Kubernetes and Docker Swarm native
+- CLI available with YAML format for templating and defining functions
+- Auto-scales as demand increases
+
+
 
 
 - run on any public or private cloud
