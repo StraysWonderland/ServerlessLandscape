@@ -3,7 +3,7 @@
 
  [serverless landscape](https://landscape.cncf.io/format=serverless)
 
----
+
 ## TODO:
 
 - knative skalierung testen
@@ -17,9 +17,15 @@
 - knative scale to zero kommt zu kubernetes?
 
 
+
 # what is serverless?
 
 quick description of what we consider as serverless functions.
+
+- event driven
+- short lived
+
+
 
 # Development
 
@@ -27,7 +33,7 @@ quick description of what we consider as serverless functions.
   - no new language or development method to "learn"
 
 
-## Quarkus
+# Quarkus
 
 - Java Microframework 
 - optimised for graalVM
@@ -38,16 +44,16 @@ quick description of what we consider as serverless functions.
   - annotations to set up tests easily
 
 
-## Micronaut
+# Micronaut
 
-### Micronaut & Azure functions?
+## Micronaut & Azure functions?
 
 ---
 
 # Deployment
 
 
-## Anywhere
+# Anywhere
 
 - use language & infrastructure youre familiar with
 - one system to manage and operate for all applications
@@ -58,10 +64,10 @@ quick description of what we consider as serverless functions.
 - build functions and microservices in any languange with same deployment mechanism
   - lambda "only" supports java, node, python, c# and go
 
-### Knative
+# Knative
 
 
-### OpenFaas
+# OpenFaas
 
 
 - run on any public or private cloud
@@ -71,17 +77,18 @@ quick description of what we consider as serverless functions.
 - configuration overhead?
 - architecture?
 
-#### References
+## References
 
 - [what is openfaas and why is it an alternative to aws lambda](https://www.contino.io/insights/what-is-openfaas-and-why-is-it-an-alternative-to-aws-lambda-an-interview-with-creator-alex-ellis)
 
-### FN Project
+
+# FN Project
 
 The Fn project is, as the developers describe it on thei [homepage](https://fnproject.io/), an open-source container-native serverless platform that you can run anywhere.
 So wether you want to deploy serverless functions on a cloud vendor architecture or on-premise, Fn project delivers easy to use deployment of functions written in any programming language.
 
 
-#### Deployment workflow?
+## Deployment workflow?
 [Getting started with FN Guide](https://fnproject.io/tutorials/JavaFDKIntroduction/)
 
 - setup server 
@@ -110,7 +117,7 @@ So wether you want to deploy serverless functions on a cloud vendor architecture
     fn invoke breakeven-app breakevencalculator
     ```
 
-#### Benefits
+## Benefits
 - scaffolding
 - function development kits for mapping in and output
 - focus on ease of deployment on any cloud and on-premise
@@ -118,14 +125,18 @@ So wether you want to deploy serverless functions on a cloud vendor architecture
 - hot containers for fast response time
 - one system to manage and operate for all applications
 
-#### Drawbacks
-
+## Drawbacks
 
 --- 
 - architecture?
 
-## on FAAS
-### Serverless Framework
+
+
+
+
+# on FAAS vendors
+
+# Serverless Framework
 
 - simplifies configuration and deployment of functions to aws lambda, azure functions etc.
 - streamlines deployment across different vendors
