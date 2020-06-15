@@ -36,8 +36,7 @@ quick description of what we consider as serverless functions.
 
 # Quarkus
 
-Quarkus is a full-stack, Kubernetes-native Java framework mainly aimed at building microservices.
-It is made for Java virtual machines (JVMs) and native compilation, optimising Java specifically for containers and enabling it to become an effective platform for serverless, cloud, and Kubernetes environments.
+Quarkus is a full-stack, Kubernetes-native Java framework mainly aimed at building microservices and tailored for Java virtual machines (JVMs) and native compilation via GraalVM, optimising Java specifically for containers and enabling it to become an effective platform for serverless, cloud, and Kubernetes environments.
 
 
 - Java Microframework optimized for kubernetes and graalVM
@@ -59,11 +58,12 @@ It is made for Java virtual machines (JVMs) and native compilation, optimising J
 
 
 #### References
-- [article reference](https://developers.redhat.com/blog/2019/03/07/quarkus-next-generation-kubernetes-native-java-framework/)
 
-- [Quarkus introduction](https://developers.redhat.com/blog/2019/03/07/quarkus-next-generation-kubernetes-native-java-framework/)
+- [Red Hat: Quarkus introduction](https://developers.redhat.com/blog/2019/03/07/quarkus-next-generation-kubernetes-native-java-framework/)
 
-- [Red Hat](https://www.redhat.com/en/topics/cloud-native-apps/what-is-quarkus)
+- [Red Hat: what is quarkus](https://www.redhat.com/en/topics/cloud-native-apps/what-is-quarkus)
+
+
 
 ## Scaffolding
 
@@ -79,6 +79,10 @@ mvn io.quarkus:quarkus-maven-plugin:1.1.1.Final:create \
 
 ## BreakEvenFunction
 
+Example of a simple BreakEvenFunction achieved via Quarkus.
+
+No Additional code needed.
+
 ```java
 @GET
 @Produces({MediaType.APPLICATION_JSON})
@@ -91,15 +95,17 @@ public BreakEvenResponse calculate(@QueryParam double price,
 }
 ```
 
-### Run the Application in development mode
+### Run the Application in development mode with hot reload
 ```bash
 ./mvnw compile quarkus:dev
 ```
-- hot reload
+Making changes to the code will automatically and instantly recompile and update the application, making local testing easy.
 
 
 ## Testing
-### Creating a Test
+
+Example of creating a Test for the BreakEvenFunction.
+Quarkus annotations for easy setup.
 
 ```java
 @Inject
