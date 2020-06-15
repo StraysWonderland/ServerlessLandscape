@@ -22,9 +22,10 @@
 
 quick description of what we consider as serverless functions.
 
-- event driven
+- event-driven
 - short lived
 
+- fast startup 
 
 
 # Development
@@ -35,10 +36,17 @@ quick description of what we consider as serverless functions.
 
 # Quarkus
 
-
+Quarkus is a full-stack, Kubernetes-native Java framework mainly aimed at building microservices.
+It is made for Java virtual machines (JVMs) and native compilation, optimising Java specifically for containers and enabling it to become an effective platform for serverless, cloud, and Kubernetes environments.
 
 
 - Java Microframework optimized for kubernetes and graalVM
+- "Designed for Developers"
+  - Hot reload
+  -  Unified imperative and reactive programming
+  -  Unified configuration
+  -  Easy native executable generation
+  -  Best-of-Breed Libraries and Standards
 - Fast Startup (tens of milliseconds)
   - allows automatic scaling up and down of microservices on containers and Kubernetes as well as FaaS on-the-spot execution
 - Low memory utilization
@@ -50,9 +58,12 @@ quick description of what we consider as serverless functions.
   - annotations to set up tests easily
 
 
-
+#### References
 - [article reference](https://developers.redhat.com/blog/2019/03/07/quarkus-next-generation-kubernetes-native-java-framework/)
 
+- [Quarkus introduction](https://developers.redhat.com/blog/2019/03/07/quarkus-next-generation-kubernetes-native-java-framework/)
+
+- [Red Hat](https://www.redhat.com/en/topics/cloud-native-apps/what-is-quarkus)
 
 ## Scaffolding
 
@@ -256,7 +267,10 @@ CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
 - Knative is portable: run it anywhere Kubernetes runs, never worry about vendor lock-in.
 - Idiomatic developer experience, supporting common patterns such as GitOps, DockerOps, ManualOps.
 - Knative can be used with common tools and frameworks such as Django, Ruby on Rails, Spring, and many more. 
-- 
+
+
+--- 
+
 # OpenFaas
 OpenFaaS makes it easy for developers to deploy event-driven functions and microservices to Kubernetes without repetitive, boiler-plate coding. Package your code or an existing binary in a Docker image to get a highly scalable endpoint with auto-scaling and metrics.
 
@@ -286,6 +300,7 @@ https://github.com/openfaas/workshop
 - [openfaas on minikube](https://medium.com/faun/getting-started-with-openfaas-on-minikube-634502c7acdf)
 - [what is openfaas and why is it an alternative to aws lambda](https://www.contino.io/insights/what-is-openfaas-and-why-is-it-an-alternative-to-aws-lambda-an-interview-with-creator-alex-ellis)
 
+---
 
 # FN Project
 
@@ -329,6 +344,7 @@ So wether you want to deploy serverless functions on a cloud vendor architecture
 - load balancing
 - hot containers for fast response time
 - one system to manage and operate for all applications
+- avoid vendor lock-in
 
 ## Drawbacks
 
@@ -337,7 +353,7 @@ So wether you want to deploy serverless functions on a cloud vendor architecture
 
 
 
-
+---
 
 # Deployment on FAAS vendors
 
