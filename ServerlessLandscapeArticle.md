@@ -259,6 +259,12 @@ CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
 
 # Micronaut
 
+"A modern, JVM-based, full-stack framework for building modular, easily testable microservice and serverless applications."
+
+
+- tailored for graalvm
+- fast startup time
+
 ## Micronaut & Azure functions?
 
 ---
