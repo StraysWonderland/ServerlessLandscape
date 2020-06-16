@@ -295,12 +295,13 @@ OpenFaaS makes it easy for developers to deploy event-driven functions and micro
 
 - Ease of use through UI portal and one-click install
 - Write functions in any language for Linux or Windows and package in Docker/OCI image format
-- Portable - runs on existing hardware or public/private cloud - Kubernetes and Docker Swarm native
+- Portable 
+  - runs on existing hardware or public/private cloud 
+  - - Kubernetes and Docker Swarm native
 - CLI available with YAML format for templating and defining functions
 - Auto-scales as demand increases
 
-- can be run on top of docker swarm as well
-- 
+ 
 ## workflow
 
 https://github.com/openfaas/workshop
