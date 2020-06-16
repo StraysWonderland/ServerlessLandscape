@@ -26,7 +26,7 @@ quick description of what we consider as serverless functions.
 - short lived
 
 - fast startup 
-
+- code centric paradigm
 
 # Development
 
@@ -67,6 +67,9 @@ Quarkus is a full-stack, Kubernetes-native Java framework mainly aimed at buildi
 
 ## Scaffolding
 
+Quarkus allows to easily setup a scaffold project that includes a simple hello world function and a test.
+This boilerplate project helps to quickly set-up a function with minimal effort.
+
 ```bash
 mvn io.quarkus:quarkus-maven-plugin:1.1.1.Final:create \
     -DprojectGroupId=info.novatec \
@@ -81,7 +84,9 @@ mvn io.quarkus:quarkus-maven-plugin:1.1.1.Final:create \
 
 Example of a simple BreakEvenFunction achieved via Quarkus.
 
-No Additional code needed.
+No Additional code or classes ( no application class either ) needed.
+
+Spring like, self-explanatory annotations:
 
 ```java
 @GET
@@ -96,10 +101,13 @@ public BreakEvenResponse calculate(@QueryParam double price,
 ```
 
 ### Run the Application in development mode with hot reload
+
+Making changes to the code will automatically and instantly recompile and update the application, making local testing easy.
+
 ```bash
 ./mvnw compile quarkus:dev
 ```
-Making changes to the code will automatically and instantly recompile and update the application, making local testing easy.
+
 
 
 ## Testing
@@ -131,12 +139,16 @@ public void testBreakEvenFunction(double price, double fixedCost, double unitCos
 ```
 
 ### Run the test
+when compiling the quarkus project, all tests will be run automatically.
 
+Explicit test run possible as well via:
 ```bash
 ./mvnw test
 ```
 
 ## Extensions: Health
+
+Quarkus provides a set if bst-of-Breed Libraries and Standards to extend your functions with additional metric collection, health services or security tools.
 
 ### Adding the package
 ```bash
@@ -287,7 +299,8 @@ OpenFaaS makes it easy for developers to deploy event-driven functions and micro
 - CLI available with YAML format for templating and defining functions
 - Auto-scales as demand increases
 
-
+- can be run on top of docker swarm as well
+- 
 ## workflow
 
 https://github.com/openfaas/workshop
@@ -310,7 +323,7 @@ https://github.com/openfaas/workshop
 
 # FN Project
 
-The Fn project is, as the developers describe it on thei [homepage](https://fnproject.io/), an open-source container-native serverless platform that you can run anywhere.
+The Fn project is, as the developers describe it on thei [homepage](https://fnproject.io/), an open-source container-native functions-as-a-servuce platform that you can run anywhere.
 So wether you want to deploy serverless functions on a cloud vendor architecture or on-premise, Fn project delivers easy to use deployment of functions written in any programming language.
 
 
@@ -332,6 +345,8 @@ So wether you want to deploy serverless functions on a cloud vendor architecture
     ```bash
     fn create app breakeven-app
     ```
+
+    an app is a collection of functions that you can use to organise your functions
 
 - deploy your function
     ```bash
