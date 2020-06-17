@@ -267,6 +267,19 @@ CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
 
 ## Micronaut & Azure functions?
 
+
+
+# Kotless
+
+"Kotlin serverless framework"
+
+Focus on simplifying serverless deployment creation workflow
+
+consists of:
+- DSL to define serverless applications
+  - also offers support for ktor or spring boot
+- Gradle Plugin to deploy to AWS (or locally)
+
 ---
 
 # Deployment Anywhere
@@ -381,6 +394,20 @@ So wether you want to deploy serverless functions on a cloud vendor architecture
 
 
 
+# RIFF is for functions
+
+riff is an Open Source platform for building and running Functions, Applications, and Containers on Kubernetes. 
+
+- simplifies deployment and iteration workflow
+  ```bash
+  riff function create breakeven \
+    --git-repo https://example.com/my/repo \
+    --image my/breakeven
+  ```
+- CLI to create and deploy functions
+- create knative deployments easily
+- streaming??
+  
 ---
 
 # Deployment on FAAS vendors
