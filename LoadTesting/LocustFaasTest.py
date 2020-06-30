@@ -6,13 +6,8 @@ class QuickstartUser(HttpUser):
 
     @task
     def index_page(self):
-        self.client.get("/hello")
-        self.client.get("/world")
-
-    @task(3)
-    def view_item(self):
-        item_id = random.randint(1, 10000)
-        self.client.get(f"/item?id={item_id}", name="/item")
+        self.client.post("/function/markdown", {"# locust load test *client posting to markdown function"})
+        
 
     def on_start(self):
-        self.client.post("/login", {"username":"foo", "password":"bar"})
+       self.client.get("/function/nodeinfo")
