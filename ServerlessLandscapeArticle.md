@@ -16,7 +16,11 @@
 
 - knative scale to zero kommt zu kubernetes?
 
+- startup time metriken erfassen
+- container overhead?
 
+
+- statistiken/version usw zu frameworks
 
 # what is serverless?
 
