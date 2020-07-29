@@ -10,4 +10,4 @@ class QuickstartUser(HttpUser):
         
 
     def on_start(self):
-       self.client.get("/function/nodeinfo")
+       self.client.get("/function/break-even-kotlin")
