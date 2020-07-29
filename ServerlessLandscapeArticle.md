@@ -4,23 +4,6 @@
  [serverless landscape](https://landscape.cncf.io/format=serverless)
 
 
-## TODO:
-
-- knative skalierung testen
-- Micronaut -> graalvm -> lambda
-- micronaut and azure functions
-- openFaas usw nutzen in der Industrie 
-
-- performance vergleich; aws lambda vs knative 
-  - container overhead?
-
-- knative scale to zero kommt zu kubernetes?
-
-- startup time metriken erfassen
-- container overhead?
-
-
-- statistiken/version usw zu frameworks
 
 # what is serverless?
 
@@ -33,6 +16,9 @@ quick description of what we consider as serverless functions.
 - code centric paradigm
 
 # Development
+
+Using Microframeworks that ease the creation of serverless functions has the benefit of reusing the skillset, knowledge and workflow of developers familiar with microservices.
+No need to switch to a new framework or workflow if the framework you are using for your microservices also is suited for the creation of serverless functions.
 
 - benefit of using microframework: reuse of developer knowledge, skillset and workflow
   - no new language or development method to "learn"
@@ -452,3 +438,26 @@ riff is an Open Source platform for building and running Functions, Applications
 
 - simplifies configuration and deployment of functions to aws lambda, azure functions etc.
 - streamlines deployment across different vendors
+
+
+
+-----
+
+
+## TODO:
+
+- knative skalierung testen
+- Micronaut -> graalvm -> lambda
+- micronaut and azure functions
+- openFaas usw nutzen in der Industrie 
+
+- performance vergleich; aws lambda vs knative 
+  - container overhead?
+
+- knative scale to zero kommt zu kubernetes?
+
+- startup time metriken erfassen
+- container overhead?
+
+
+- statistiken/version usw zu frameworks
