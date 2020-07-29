@@ -309,25 +309,43 @@ consists of:
 - Idiomatic developer experience, supporting common patterns such as GitOps, DockerOps, ManualOps.
 - Knative can be used with common tools and frameworks such as Django, Ruby on Rails, Spring, and many more. 
 
-
 --- 
 
 # OpenFaas
-OpenFaaS makes it easy for developers to deploy event-driven functions and microservices to Kubernetes without repetitive, boiler-plate coding. Package your code or an existing binary in a Docker image to get a highly scalable endpoint with auto-scaling and metrics.
+OpenFaaS is a framework for building Serverless functions on top of containers and deployment on any cloud or on-premise.
+The goal is to enable developers to deploy event-driven functions and microservices to Kubernetes without repetitive, boiler-plate coding.
 
+OpenFaas allows you to write functions in any language for Linux or Windows and package in Docker/OCI image format.
+The faas-cli can build a container for your code using a yaml file configuration and language template either from its own template store, or any github repository specifying a template such as [this template for quarkus](https://github.com/pmlopes/openfaas-quarkus-native-template).
+This workflow adds a watchdog component to the container and thus allows any process to become a serverless function with auto-scaling and metrics.
+
+(drawback?? applies to all plattforms?)
+However, the fact that you have to build your images from the ground up can be considered a major drawback.
+You cant just ship and deploy your already existing images for functions that have been build for other vendors directly to openfaas. 
+Youll have to specify the yaml configuration tailored for openfaas and let the faas-cli build it.
 
 - Ease of use through UI portal and one-click install
-- Write functions in any language for Linux or Windows and package in Docker/OCI image format
+- 
 - Portable 
   - runs on existing hardware or public/private cloud 
-  - - Kubernetes and Docker Swarm native
-- CLI available with YAML format for templating and defining functions
+  -  Kubernetes and Docker Swarm native
 - Auto-scales as demand increases
 
+OpenFaas also offers a function-store with some useful predefined functions such as sentiment analysis, face detection, text to speech and nsfw detection.
+These functions can easily be deployed via the faas-cli directly from the store.
+Developers can also contribute to the function store, which may lead to a great variety of ready to use functions in the future.
  
 ## workflow
 
 https://github.com/openfaas/workshop
+
+
+- create kubernetes or docker swarm cluster
+- install openfaas using either helm or arkade
+- install faas-cli
+- create a function scaffold using faas-cli and specifying desired language
+- build image for your function and deploy it directly to openfaas via 
+    ```bash faas-cli up```
 
 ## benfits
 - run on any public or private cloud
@@ -338,11 +356,19 @@ https://github.com/openfaas/workshop
 
 ## architecture?
 
+## stats
+
+- 18.1 stars
+- 1.5k forks
+- 1,912 regular commits ( mostly lass than a week between commits)
+- 150 contributors
 ## References
 
 - [openfaas on minikube](https://medium.com/faun/getting-started-with-openfaas-on-minikube-634502c7acdf)
 - [what is openfaas and why is it an alternative to aws lambda](https://www.contino.io/insights/what-is-openfaas-and-why-is-it-an-alternative-to-aws-lambda-an-interview-with-creator-alex-ellis)
 
+---
+---
 ---
 
 # FN Project
@@ -397,7 +423,13 @@ So wether you want to deploy serverless functions on a cloud vendor architecture
 ## architecture?
 
 
-
+# stats
+- 4.7K stars
+- 348 forks
+- 3393 commits (last in dec 2019)
+  - semi active
+- 86 contributors
+  
 # RIFF is for functions
 
 riff is an Open Source platform for building and running Functions, Applications, and Containers on Kubernetes. 
