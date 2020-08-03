@@ -321,6 +321,13 @@ OpenFaas also offers a function-store with some useful predefined functions such
 These functions can easily be deployed via the faas-cli directly from the store.
 Developers can also contribute to the function store, which may lead to a great variety of ready to use functions in the future.
  
+
+Auto-scaling in OpenFaas can be configured within the yaml file of a deployed function.
+Per default it is set to always keep at least one replica, and scale the number of replicas up to a maximum of 20 if a large amount of requests come in.
+This means, that per default, there is no scale-to-zero but that at all times one image is kept up and running for each function.
+Keeping a replica up reduces the average response time, since there are no cold starts.
+And since youre deploying OpenFaas on a cloud plattform, this does not produce any cost-overhead as it would with a pay-per-use model of serverless providers.
+
 ## workflow
 
 https://github.com/openfaas/workshop
@@ -348,6 +355,8 @@ https://github.com/openfaas/workshop
 - 1.5k forks
 - 1,912 regular commits ( mostly lass than a week between commits)
 - 150 contributors
+
+OpenFaas seems to be quite active and being continuesly developed.
 ## References
 
 - [openfaas on minikube](https://medium.com/faun/getting-started-with-openfaas-on-minikube-634502c7acdf)
@@ -461,3 +470,14 @@ riff is an Open Source platform for building and running Functions, Applications
 
 
 - statistiken/version usw zu frameworks
+
+- delta zwischen lokalem start und plattform start
+  - delta zwischen quarkus, spring usw.
+
+
+
+SERVERLESS:
+
+(knative is serverless if) serverless means auto load and scale to zero, simplify deployment of code
+
+not if applications has long startup times
