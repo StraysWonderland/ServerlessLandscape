@@ -8,10 +8,10 @@
 # what is serverless?
 
 quick description of what we consider as serverless functions.
+we define serverless as auto-load, scale to zero, simplifying deployment of code
 
 - event-driven
 - short lived
-
 - fast startup 
 - code centric paradigm
 
@@ -304,6 +304,10 @@ The goal is to enable developers to deploy event-driven functions and microservi
 OpenFaas allows you to write functions in any language for Linux or Windows and package in Docker/OCI image format.
 The faas-cli can build a container for your code using a yaml file configuration and language template either from its own template store, or any github repository specifying a template such as [this template for quarkus](https://github.com/pmlopes/openfaas-quarkus-native-template).
 This workflow adds a watchdog component to the container and thus allows any process to become a serverless function with auto-scaling and metrics.
+This simplifies the deployment of functions greatly, especially when compared to kubernetes.
+The configuration of a deployment in OpenFaas is usually only a few lines and deployed with one cli-command
+
+> TODO: Comparison of yml file
 
 (drawback?? applies to all plattforms?)
 However, the fact that you have to build your images from the ground up can be considered a major drawback.
@@ -322,6 +326,8 @@ These functions can easily be deployed via the faas-cli directly from the store.
 Developers can also contribute to the function store, which may lead to a great variety of ready to use functions in the future.
  
 
+
+( fact-check intention of no scale-to-zero)
 Auto-scaling in OpenFaas can be configured within the yaml file of a deployed function.
 Per default it is set to always keep at least one replica, and scale the number of replicas up to a maximum of 20 if a large amount of requests come in.
 This means, that per default, there is no scale-to-zero but that at all times one image is kept up and running for each function.
@@ -475,9 +481,3 @@ riff is an Open Source platform for building and running Functions, Applications
   - delta zwischen quarkus, spring usw.
 
 
-
-SERVERLESS:
-
-(knative is serverless if) serverless means auto load and scale to zero, simplify deployment of code
-
-not if applications has long startup times
