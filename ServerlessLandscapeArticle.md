@@ -8,12 +8,12 @@
 # what is serverless?
 
 quick description of what we consider as serverless functions.
-
-- event-driven
+Serverless in the course of this article will be defined as paradigm to simplify deployment of code that is 
+- event driven
 - short lived
+- has fast startup 
+and where this paradigm enables auto load and scale to zero.
 
-- fast startup 
-- code centric paradigm
 
 # Development
 
