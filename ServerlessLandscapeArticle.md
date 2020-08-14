@@ -301,6 +301,46 @@ consists of:
 OpenFaaS is a framework for building Serverless functions on top of containers and deployment on any cloud or on-premise.
 The goal is to enable developers to deploy event-driven functions and microservices to Kubernetes without repetitive, boiler-plate coding.
 
+Deploying a function to OpenFaas is effortlessly easy through the ability to deploy functions via UI portal and one-click install.
+This workflow and the configuration of a function through yaml is much simpler compared to kubernetes, which is the main strength of OpenFaas.
+
+- typical kubernetes yaml
+    ```yaml
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+    name: nginx-deployment
+    labels:
+        app: nginx
+    spec:
+    replicas: 3
+    selector:
+        matchLabels:
+        app: nginx
+    template:
+        metadata:
+        labels:
+            app: nginx
+        spec:
+        containers:
+        - name: nginx
+            image: nginx:1.7.9
+            ports:
+            - containerPort: 80
+    ```
+- compared to typical OpenFaas yaml
+    ```yaml
+    version: 1.0
+    provider:
+        name: openfaas
+        gateway: http://127.0.0.1:8080
+    functions:
+        break-even-kotlin:
+            lang: kotlin-maven-mn
+            handler: ./break-even-kotlin
+            image: straywonderland/break-even-kotlin:latest
+    ```
+
 OpenFaas allows you to write functions in any language for Linux or Windows and package in Docker/OCI image format.
 The faas-cli can build a container for your code using a yaml file configuration and language template either from its own template store, or any github repository specifying a template such as [this template for quarkus](https://github.com/pmlopes/openfaas-quarkus-native-template).
 This workflow adds a watchdog component to the container and thus allows any process to become a serverless function with auto-scaling and metrics.
@@ -310,8 +350,9 @@ However, the fact that you have to build your images from the ground up can be c
 You cant just ship and deploy your already existing images for functions that have been build for other vendors directly to openfaas. 
 Youll have to specify the yaml configuration tailored for openfaas and let the faas-cli build it.
 
-- Ease of use through UI portal and one-click install
-- 
+
+
+
 - Portable 
   - runs on existing hardware or public/private cloud 
   -  Kubernetes and Docker Swarm native
@@ -337,10 +378,25 @@ https://github.com/openfaas/workshop
 - install openfaas using either helm or arkade
 - install faas-cli
 - create a function scaffold using faas-cli and specifying desired language
+    ```bash
+        faas-cli new --lang java breakeven
+    ```
+    - or add a yaml file to the directory of an existing project
+    ```yaml
+    version: 1.0
+    provider:
+        name: openfaas
+        gateway: http://127.0.0.1:8080
+    functions:
+        break-even-kotlin:
+            lang: kotlin-maven-mn
+            handler: ./break-even-kotlin
+            image: straywonderland/break-even-kotlin:latest
+    ```
 - build image for your function and deploy it directly to openfaas via 
     ```bash faas-cli up```
 
-## benfits
+## benefits
 - run on any public or private cloud
 - Run container based functions on own servers
 - runs on docker swarm or kubernetes
@@ -362,7 +418,7 @@ OpenFaas seems to be quite active and being continuesly developed.
 - [openfaas on minikube](https://medium.com/faun/getting-started-with-openfaas-on-minikube-634502c7acdf)
 - [what is openfaas and why is it an alternative to aws lambda](https://www.contino.io/insights/what-is-openfaas-and-why-is-it-an-alternative-to-aws-lambda-an-interview-with-creator-alex-ellis)
 
----
+
 ---
 ---
 
