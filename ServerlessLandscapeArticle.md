@@ -12,7 +12,10 @@ Serverless in the course of this article will be defined as paradigm to simplify
 - event driven
 - short lived
 - has fast startup 
+- abstracted or "hidden" infrastructure
+
 and where this paradigm enables auto load and scale to zero.
+
 
 
 # Development
@@ -20,8 +23,8 @@ and where this paradigm enables auto load and scale to zero.
 Using Microframeworks that ease the creation of serverless functions has the benefit of reusing the skillset, knowledge and workflow of developers familiar with microservices.
 No need to switch to a new framework or workflow if the framework you are using for your microservices also is suited for the creation of serverless functions.
 
-- benefit of using microframework: reuse of developer knowledge, skillset and workflow
-  - no new language or development method to "learn"
+A major benefit of using microframeworks to develop serverless functions is that developers reuse their knowledge and skillset of creating microservices.
+There is no new language or development method to "learn" and the workflow remains the same, so that creating serverless functions are seemlessly integrated into the usual workflow.
 
 
 # Quarkus
@@ -45,14 +48,6 @@ Quarkus is a full-stack, Kubernetes-native Java framework mainly aimed at buildi
   - hot reload
   - packages to gather metrics 
   - annotations to set up tests easily
-
-
-#### References
-
-- [Red Hat: Quarkus introduction](https://developers.redhat.com/blog/2019/03/07/quarkus-next-generation-kubernetes-native-java-framework/)
-
-- [Red Hat: what is quarkus](https://www.redhat.com/en/topics/cloud-native-apps/what-is-quarkus)
-
 
 
 ## Scaffolding
@@ -211,7 +206,7 @@ localhost:8080/metrics/
 ```bash
  ./mvnw package -Pnative
 ```
-    add to pom.xml
+-   add to pom.xml
     ```xml
     <profiles>
         <profile>
@@ -244,8 +239,14 @@ EXPOSE 8080
 CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
 ```
 
+#### References
+
+- [Red Hat: Quarkus introduction](https://developers.redhat.com/blog/2019/03/07/quarkus-next-generation-kubernetes-native-java-framework/)
+
+- [Red Hat: what is quarkus](https://www.redhat.com/en/topics/cloud-native-apps/what-is-quarkus)
 
 
+---
 
 # Micronaut
 
@@ -284,6 +285,7 @@ consists of:
   - lambda "only" supports java, node, python, c# and go
 
 # Knative
+
 "Kubernetes-based platform to deploy and manage modern serverless workloads."
 
 ## Benefits
@@ -355,8 +357,6 @@ You cant just ship and deploy your already existing images for functions that ha
 Youll have to specify the yaml configuration tailored for openfaas and let the faas-cli build it.
 
 
-
-
 - Portable 
   - runs on existing hardware or public/private cloud 
   -  Kubernetes and Docker Swarm native
@@ -367,13 +367,18 @@ These functions can easily be deployed via the faas-cli directly from the store.
 Developers can also contribute to the function store, which may lead to a great variety of ready to use functions in the future.
  
 
-
 ( fact-check intention of no scale-to-zero)
 Auto-scaling in OpenFaas can be configured within the yaml file of a deployed function.
 Per default it is set to always keep at least one replica, and scale the number of replicas up to a maximum of 20 if a large amount of requests come in.
 This means, that per default, there is no scale-to-zero but that at all times one image is kept up and running for each function.
 Keeping a replica up reduces the average response time, since there are no cold starts.
 And since youre deploying OpenFaas on a cloud plattform, this does not produce any cost-overhead as it would with a pay-per-use model of serverless providers.
+
+## benefits
+- run on any public or private cloud
+- Run container based functions on own servers
+- runs on docker swarm or kubernetes
+
 
 ## workflow
 
@@ -402,14 +407,6 @@ https://github.com/openfaas/workshop
 - build image for your function and deploy it directly to openfaas via 
     ```bash faas-cli up```
 
-## benefits
-- run on any public or private cloud
-- Run container based functions on own servers
-- runs on docker swarm or kubernetes
-
-- configuration overhead?
-
-## architecture?
 
 ## stats
 
@@ -419,6 +416,7 @@ https://github.com/openfaas/workshop
 - 150 contributors
 
 OpenFaas seems to be quite active and being continuesly developed.
+
 ## References
 
 - [openfaas on minikube](https://medium.com/faun/getting-started-with-openfaas-on-minikube-634502c7acdf)
@@ -433,6 +431,14 @@ OpenFaas seems to be quite active and being continuesly developed.
 The Fn project is, as the developers describe it on thei [homepage](https://fnproject.io/), an open-source container-native functions-as-a-servuce platform that you can run anywhere.
 So wether you want to deploy serverless functions on a cloud vendor architecture or on-premise, Fn project delivers easy to use deployment of functions written in any programming language.
 
+## Benefits
+- scaffolding
+- function development kits for mapping in and output
+- focus on ease of deployment on any cloud and on-premise
+- load balancing
+- hot containers for fast response time
+- one system to manage and operate for all applications
+- avoid vendor lock-in
 
 ## Deployment workflow?
 [Getting started with FN Guide](https://fnproject.io/tutorials/JavaFDKIntroduction/)
@@ -446,8 +452,18 @@ So wether you want to deploy serverless functions on a cloud vendor architecture
     ```bash
     fn init --runtime java breakevencalculator
     ```
-- edit code
+    - edit code
 
+- or add a configuration file to an existing repo
+    ```yml
+    schema_version: 20180708
+    name: javafn
+    version: 0.0.1
+    runtime: java
+    build_image: fnproject/fn-java-fdk-build:jdk11-1.0100
+    run_image: fnproject/fn-java-fdk:jre11-1.0.100
+    cmd: com.example.fn.breakeven::handleRequest
+    ```
 - Create your app
     ```bash
     fn create app breakeven-app
@@ -465,28 +481,20 @@ So wether you want to deploy serverless functions on a cloud vendor architecture
     fn invoke breakeven-app breakevencalculator
     ```
 
-## Benefits
-- scaffolding
-- function development kits for mapping in and output
-- focus on ease of deployment on any cloud and on-premise
-- load balancing
-- hot containers for fast response time
-- one system to manage and operate for all applications
-- avoid vendor lock-in
+## stats
 
-## Drawbacks
-
-
-## architecture?
-
-
-# stats
-- 4.7K stars
-- 348 forks
-- 3393 commits (last in dec 2019)
+- Stars: 4700
+- Forks: 348
+- Commits: 3400
+  - last in dec 2019
   - semi active
-- 86 contributors
-  
+- Contributors: 86
+- Issues: 121 
+
+
+--- 
+---
+
 # RIFF is for functions
 
 riff is an Open Source platform for building and running Functions, Applications, and Containers on Kubernetes. 
@@ -509,7 +517,7 @@ riff is an Open Source platform for building and running Functions, Applications
 
 - simplifies configuration and deployment of functions to aws lambda, azure functions etc.
 - streamlines deployment across different vendors
-
+-
 
 
 -----
@@ -518,22 +526,16 @@ riff is an Open Source platform for building and running Functions, Applications
 ## TODO:
 
 - knative skalierung testen
+- knative scale to zero kommt zu kubernetes?
+  
 - Micronaut -> graalvm -> lambda
 - micronaut and azure functions
 - openFaas usw nutzen in der Industrie 
 
 - performance vergleich; aws lambda vs knative 
   - container overhead?
-
-- knative scale to zero kommt zu kubernetes?
-
-- startup time metriken erfassen
-- container overhead?
-
-
-- statistiken/version usw zu frameworks
-
 - delta zwischen lokalem start und plattform start
   - delta zwischen quarkus, spring usw.
+
 
 
