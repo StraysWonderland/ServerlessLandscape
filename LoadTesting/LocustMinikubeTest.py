@@ -6,7 +6,7 @@ class QuickstartUser(HttpUser):
 
     @task
     def index_page(self):
-        self.client.post("/run?price=20.00&fixedCost=100.00&unitCost=10.00")
+        self.client.get("/run?price=20.00&fixedCost=100.00&unitCost=10.00")
         
 
     def on_start(self):
