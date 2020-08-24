@@ -323,7 +323,10 @@ consists of:
 OpenFaaS is a framework for building Serverless functions on top of containers and deployment on any cloud or on-premise.
 The goal is to enable developers to deploy event-driven functions and microservices to Kubernetes without repetitive, boiler-plate coding.
 
-Deploying a function to OpenFaas is effortlessly easy through the ability to deploy functions via UI portal and one-click install.
+OpenFaas allows you to write functions in any language for Linux or Windows and package in Docker/OCI image format.
+The faas-cli can build a container for your code using a yaml file configuration and language template either from its own template store, or any github repository specifying a template such as [this template for quarkus](https://github.com/pmlopes/openfaas-quarkus-native-template).
+This workflow adds a watchdog component to the container and thus allows any process to become a serverless function with auto-scaling and metrics.
+This simplifies the deployment of functions greatly so that deploying a function to OpenFaas is effortlessly easy through the ability to deploy functions via UI portal and one-click install.
 This workflow and the configuration of a function through yaml is much simpler compared to kubernetes, which is the main strength of OpenFaas.
 
 - typical kubernetes yaml
@@ -363,19 +366,9 @@ This workflow and the configuration of a function through yaml is much simpler c
             image: straywonderland/break-even-kotlin:latest
     ```
 
-OpenFaas allows you to write functions in any language for Linux or Windows and package in Docker/OCI image format.
-The faas-cli can build a container for your code using a yaml file configuration and language template either from its own template store, or any github repository specifying a template such as [this template for quarkus](https://github.com/pmlopes/openfaas-quarkus-native-template).
-This workflow adds a watchdog component to the container and thus allows any process to become a serverless function with auto-scaling and metrics.
-This simplifies the deployment of functions greatly, especially when compared to kubernetes.
-The configuration of a deployment in OpenFaas is usually only a few lines and deployed with one cli-command
-
-> TODO: Comparison of yml file
-
-(drawback?? applies to all plattforms?)
 However, the fact that you have to build your images from the ground up can be considered a major drawback.
 You cant just ship and deploy your already existing images for functions that have been build for other vendors directly to openfaas. 
 Youll have to specify the yaml configuration tailored for openfaas and let the faas-cli build it.
-
 
 - Portable 
   - runs on existing hardware or public/private cloud 
@@ -462,7 +455,7 @@ Load testing on micronaut break-even function
 
 # FN Project
 
-The Fn project is, as the developers describe it on thei [homepage](https://fnproject.io/), an open-source container-native functions-as-a-servuce platform that you can run anywhere.
+The Fn project is, as the developers describe it on their [homepage](https://fnproject.io/), an open-source container-native functions-as-a-service platform that you can run anywhere.
 So wether you want to deploy serverless functions on a cloud vendor architecture or on-premise, Fn project delivers easy to use deployment of functions written in any programming language.
 
 ## Benefits
