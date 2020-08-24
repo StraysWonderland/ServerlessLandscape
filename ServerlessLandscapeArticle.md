@@ -304,6 +304,20 @@ consists of:
 - build functions and microservices in any languange with same deployment mechanism
   - lambda "only" supports java, node, python, c# and go
 
+There is a number of plattforms that enable you to deploy and manage serverless functions.
+Nameworthy examples are:
+- AWS Lambda
+- Microsoft Functions
+- Google Cloud Functions
+- Apache OpenWhisk
+- Fission
+- FN Project
+- Knative
+- Kubeless
+- Nuclio
+- OpenFaas
+  
+We will take a look into a few of those
 # Knative
 
 "Kubernetes-based platform to deploy and manage modern serverless workloads."
@@ -537,6 +551,21 @@ riff is an Open Source platform for building and running Functions, Applications
 - streaming??
   
 ---
+---
+
+# Kubeless
+
+Kubeless is a Kubernetes-native serverless framework that lets you deploy functions without having to worry about the underlying infrastructure. It is designed to be deployed on top of a Kubernetes cluster and take advantage of all the great Kubernetes primitives. If you are looking for an open source serverless solution that clones what you can find on AWS Lambda, Azure Functions, and Google Cloud Functions, Kubeless is for you!
+
+Kubeless Includes:
+- Support for Python, Node.js, Ruby, PHP, Golang, .NET, Ballerina
+- supports custom runtimes
+- CLI compliant with AWS Lambda CLI
+- Event triggers using Kafka messaging system and HTTP events
+- Prometheus monitoring of functions calls and function latency by default
+- Serverless Framework plugin
+
+
 
 # Deployment on FAAS vendors
 
