@@ -393,7 +393,10 @@ Per default it is set to always keep at least one replica, and scale the number 
 This means, that per default, there is no scale-to-zero but that at all times one image is kept up and running for each function.
 Keeping a replica up reduces the average response time, since there are no cold starts.
 And since youre deploying OpenFaas on a cloud plattform, this does not produce any cost-overhead as it would with a pay-per-use model of serverless providers.
-
+OpenFaas does however support scale from and to zero by editing the configuration for the minimum number of replicas or setting it via
+```bash 
+kubectl scale deployment --replicas=0 break-even-kotlin -n openfaas-fn 
+```
 ## benefits
 - run on any public or private cloud
 - Run container based functions on own servers
