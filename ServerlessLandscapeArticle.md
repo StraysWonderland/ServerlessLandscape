@@ -252,9 +252,29 @@ CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
 
 "A modern, JVM-based, full-stack framework for building modular, easily testable microservice and serverless applications."
 
+It enables you to write applications in Java, Kotlin or Groovy.
+
 
 - tailored for graalvm
 - fast startup time
+- reduced memory footprint
+-  compile time dependency injection instead of reflection
+
+
+
+    ```java
+    @Controller("/")
+    class Handler {
+
+        @Consumes(MediaType.APPLICATION_JSON)
+        @Post(produces = [MediaType.APPLICATION_JSON])
+        fun index(@JsonProperty("price") price: Double,
+                @JsonProperty("fixedCosts") fixedCosts: Double,
+                @JsonProperty("unitCosts") unitCosts: Double): Int {
+            return ceil(fixedCosts / (price - unitCosts)).toInt()
+        }
+    }
+    ```
 
 ## Micronaut & Azure functions?
 
@@ -416,6 +436,17 @@ https://github.com/openfaas/workshop
 - 150 contributors
 
 OpenFaas seems to be quite active and being continuesly developed.
+
+## load testing results
+
+
+Load testing on micronaut break-even function
+| Median        | 90%ile | Min  | Max |
+| :-----------: |:------:|:----:|:---:|
+| 16    | 53 | 5 | 92 |
+
+![openfaas test](Images/monitoring_breakeven_kotlin_openfaas.PNG) 
+![openfaas test](Images/response_times_openfaas.PNG) 
 
 ## References
 
