@@ -331,6 +331,35 @@ We will take a look into a few of those
 - Idiomatic developer experience, supporting common patterns such as GitOps, DockerOps, ManualOps.
 - Knative can be used with common tools and frameworks such as Django, Ruby on Rails, Spring, and many more. 
 
+```yml
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+ name: helloworld-go
+ namespace: default
+spec:
+ template:
+  spec:
+   containers:
+    - image: gcr.io/knative-samples/helloworld-go
+      env:
+        - name: TARGET
+          value: "Go Sample v1"
+```
+
+## stats
+- Stars: 2700
+- Forks: 563
+- Commits: 3800
+- Contributors: 165
+- Issues: 274 
+
+
+most active of the platforms
+
+## load testing
+
+![openfaas test](Images/monitoring_breakeven_kotlin_kubernetes.PNG) 
 --- 
 
 # OpenFaas
@@ -590,11 +619,11 @@ Kubeless Includes:
 
 ## platform comparison
 
-|     | Minikube | OpenFaas | Knative | AWS | Azure |
-|:---:|:--------:  |:------:|:----:|:---: | :---:  |
-| mean| 13         | 16     | 0  | 0 | 0 |
-| min | 2          | 5      | 0  | 0 | 0 |
-| max | 50         | 92     | 0  | 0 | 0 |
+|     | local | Knative| OpenFaas | FN | AWS | Azure |
+|:---:|:--------:  |:---:|:------:|:----:|:---: | :---:  |
+| mean| 13         | 6  | 16     | 0  | 0 | 0 |
+| min | 2          | 3  | 5      | 0  | 0 | 0 |
+| max | 50         | 23 |92     | 0  | 0 | 0 |
 
 ---
 
@@ -605,6 +634,7 @@ Kubeless Includes:
   
 - Micronaut -> graalvm -> lambda
 - micronaut and azure functions
+- 
 - openFaas usw nutzen in der Industrie 
 
 - performance vergleich; aws lambda vs knative 
