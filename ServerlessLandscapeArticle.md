@@ -578,6 +578,25 @@ Kubeless Includes:
 
 -----
 
+# Load Testing
+
+## local comparison
+
+|     | Micronaut | Quarkus | delta |
+|:---:|:--------: |:------:|:----:|
+| mean| 13        | 10     | 3  |
+| min | 2         | 3      | -1  |
+| max | 50        | 44     | 6  |
+
+## platform comparison
+
+|     | Minikube | OpenFaas | Knative | AWS | Azure |
+|:---:|:--------:  |:------:|:----:|:---: | :---:  |
+| mean| 13         | 16     | 0  | 0 | 0 |
+| min | 2          | 5      | 0  | 0 | 0 |
+| max | 50         | 92     | 0  | 0 | 0 |
+
+---
 
 ## TODO:
 
