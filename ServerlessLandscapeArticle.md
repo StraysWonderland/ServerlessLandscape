@@ -7,7 +7,6 @@
 
 # what is serverless?
 
-quick description of what we consider as serverless functions.
 Serverless in the course of this article will be defined as paradigm to simplify deployment of code that is 
 - event driven
 - short lived
@@ -422,8 +421,6 @@ OpenFaas also offers a function-store with some useful predefined functions such
 These functions can easily be deployed via the faas-cli directly from the store.
 Developers can also contribute to the function store, which may lead to a great variety of ready to use functions in the future.
  
-
-( fact-check intention of no scale-to-zero)
 Auto-scaling in OpenFaas can be configured within the yaml file of a deployed function.
 Per default it is set to always keep at least one replica, and scale the number of replicas up to a maximum of 20 if a large amount of requests come in.
 This means, that per default, there is no scale-to-zero but that at all times one image is kept up and running for each function.
@@ -605,11 +602,27 @@ Kubeless Includes:
 -
 
 
+
+# AWS lambda
+
+AWS lambda is among the most popular serverless function plattform vendors.
+
+
+## workflow
+
+- create functions either via the aws console or via the aws CLI
+- requires a yaml file
+- 
+
+
 -----
 
 # Load Testing
 
-## local comparison
+## microframework comparison
+
+Comparing the run time of the break even function written in different Microframeworks.
+Comparison is done by running them localy via minikube and load testing with locust.
 
 |     | Micronaut | Quarkus | delta |
 |:---:|:--------: |:------:|:----:|
@@ -619,12 +632,24 @@ Kubeless Includes:
 
 ## platform comparison
 
+Comparing the break even function written with Micronaut on different Serverless Platforms.
+Load Testing done via locust framework.
+
 |     | local | Knative| OpenFaas | FN | AWS | Azure |
 |:---:|:--------:  |:---:|:------:|:----:|:---: | :---:  |
 | mean| 13         | 6  | 16     | 0  | 0 | 0 |
 | min | 2          | 3  | 5      | 0  | 0 | 0 |
 | max | 50         | 23 |92     | 0  | 0 | 0 |
 
+- significant difference between knative and OpenFaas
+
+### cold start
+
+|     |  Knative | OpenFaas | FN | AWS | Azure |
+|:---:| :---: |:------:|:----:|:---: | :---:  |
+| mean|   | 20     | 0  | 0 | 0 |
+| min |   | 7      | 0  | 0 | 0 |
+| max |   | 9326     | 0  | 0 | 0 |
 ---
 
 ## TODO:
@@ -634,7 +659,7 @@ Kubeless Includes:
   
 - Micronaut -> graalvm -> lambda
 - micronaut and azure functions
-- 
+
 - openFaas usw nutzen in der Industrie 
 
 - performance vergleich; aws lambda vs knative 
@@ -642,5 +667,8 @@ Kubeless Includes:
 - delta zwischen lokalem start und plattform start
   - delta zwischen quarkus, spring usw.
 
-
-
+- cold start:
+  - viele anfragen auf einmal auf einen cold start
+  - ein cold start
+  - wie funktioniert der cold start setup?
+    - knative via buffer erwähnen
