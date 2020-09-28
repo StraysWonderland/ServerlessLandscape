@@ -361,6 +361,8 @@ most active of the platforms
 ![openfaas test](Images/monitoring_breakeven_kotlin_kubernetes.PNG) 
 --- 
 
+## cold start buffering
+
 # OpenFaas
 OpenFaaS is a framework for building Serverless functions on top of containers and deployment on any cloud or on-premise.
 The goal is to enable developers to deploy event-driven functions and microservices to Kubernetes without repetitive, boiler-plate coding.
@@ -612,44 +614,8 @@ AWS lambda is among the most popular serverless function plattform vendors.
 
 - create functions either via the aws console or via the aws CLI
 - requires a yaml file
-- 
 
 
------
-
-# Load Testing
-
-## microframework comparison
-
-Comparing the run time of the break even function written in different Microframeworks.
-Comparison is done by running them localy via minikube and load testing with locust.
-
-|     | Micronaut | Quarkus | delta |
-|:---:|:--------: |:------:|:----:|
-| mean| 13        | 10     | 3  |
-| min | 2         | 3      | -1  |
-| max | 50        | 44     | 6  |
-
-## platform comparison
-
-Comparing the break even function written with Micronaut on different Serverless Platforms.
-Load Testing done via locust framework.
-
-|     | local | Knative| OpenFaas | FN | AWS | Azure |
-|:---:|:--------:  |:---:|:------:|:----:|:---: | :---:  |
-| mean| 13         | 6  | 16     | 0  | 0 | 0 |
-| min | 2          | 3  | 5      | 0  | 0 | 0 |
-| max | 50         | 23 |92     | 0  | 0 | 0 |
-
-- significant difference between knative and OpenFaas
-
-### cold start
-
-|     |  Knative | OpenFaas | FN | AWS | Azure |
-|:---:| :---: |:------:|:----:|:---: | :---:  |
-| mean|   | 20     | 0  | 0 | 0 |
-| min |   | 7      | 0  | 0 | 0 |
-| max |   | 9326     | 0  | 0 | 0 |
 ---
 
 ## TODO:
