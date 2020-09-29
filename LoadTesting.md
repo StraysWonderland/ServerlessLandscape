@@ -8,9 +8,18 @@ Comparison is done by running them localy via minikube and load testing with loc
 
 |     | Micronaut | Quarkus | delta |
 |:---:|:--------: |:------:|:----:|
-| mean| 13        | 10     | 3  |
-| min | 2         | 3      | -1  |
-| max | 50        | 44     | 6  |
+| mean| 13        | 10     | 3    |
+| min | 2         | 3      | -1   |
+| max | 50        | 44     | 6    |
+
+Since both frameworks use graalVM to create a native executable, the execution time is quite similar with no significant difference betweend them
+
+### comparison to spring 
+|     | Micronaut | SPRING | delta |
+|:---:|:--------: |:------:|:----:|
+| mean| 13        | 0     | 0   |
+| min | 2         | 0     | 0   |
+| max | 50        | 0     | 0   |
 
 ## platform comparison
 
@@ -27,6 +36,16 @@ Load Testing done via locust framework.
 
 ### cold start
 
+Each platforms required execution time for a cold start, i.e. when there are no active replicas.
+
+#### Exectution time for a single request
+
+|     |  Knative | OpenFaas | FN | AWS | Azure |
+|:---:| :---: |:------:|:----:|:---: | :---:  |
+| execution time|   0   | 260     | 0  | 0 | 0 |
+
+#### Starting a lot of requests on cold start
+
 |     | Knative | OpenFaas | FN  | AWS | Azure |
 |:---:|:-------:|:--------:|:---:|:---:|:---:  |
 | mean|         | 20       | 0   | 0   | 0 |
@@ -34,8 +53,6 @@ Load Testing done via locust framework.
 | max |         | 9326     | 0   | 0   | 0 |
 | avg |         | 260      | 0   | 0   | 0 |
 
-#### single request
-|     |  Knative | OpenFaas | FN | AWS | Azure |
-|:---:| :---: |:------:|:----:|:---: | :---:  |
-| exection time|   0   | 260     | 0  | 0 | 0 |
+OpenFaas has a very high max execution time if a lot of requests come in at the same time on a cold start.
+Explanation?
 
