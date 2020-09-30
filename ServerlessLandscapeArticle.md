@@ -597,27 +597,67 @@ Kubeless Includes:
 
 # Deployment on FAAS vendors
 
-# Serverless Framework
-
-- simplifies configuration and deployment of functions to aws lambda, azure functions etc.
-- streamlines deployment across different vendors
--
-
-
 
 # AWS lambda
 
 AWS lambda is among the most popular serverless function plattform vendors.
 
+- upload code via CLI or link to github repo
 
 ## workflow
 
-- create functions either via the aws console or via the aws CLI
+- create functions either via the aws console or via the CLI called SAM
+- 
+- Micronaut and Quarkus offer packages to build functions optimised for lambda
+  - easy native packaging and deployment
 - requires a yaml file
+    ```yaml
+    AWSTemplateFormatVersion: '2010-09-09'
+    Transform: AWS::Serverless-2016-10-31
+    Description: AWS Serverless Micronaut API - example.micronaut::prime-finder
+    Globals:
+    Api:
+        EndpointConfiguration: REGIONAL
+    Resources:
+
+    BreakEvenKotlin:
+        Type: AWS::Serverless::Function
+        Properties:
+        Handler: not.used.in.provided.runtime
+        Runtime: provided
+        CodeUri: build/function.zip
+        MemorySize: 128
+        Policies: AWSLambdaBasicExecutionRole
+        Timeout: 15
+        Events:
+            GetResource:
+            Type: Api
+            Properties:
+                Path: /{proxy+}
+                Method: any
+
+    Outputs:
+        BreakEvenKotlin:
+            Description: URL for application
+            Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/find-primes-below/{number}'
+            Export:
+            Name: BreakEvenKotlin
+    ```
+
+- workflow is simlified further by the serverless framework
+
+---
+# Azure Functions
+
+--- 
+
+# Serverless Framework
+
+- simplifies configuration and deployment of functions to aws lambda, azure functions etc.
+- streamlines deployment across different vendors
 
 
 ---
-
 ## TODO:
 
 - knative skalierung testen
