@@ -609,20 +609,28 @@ AWS lambda is among the most popular serverless function plattform vendors.
 ## workflow
 
 - create functions either via the aws console or via the CLI called SAM
+    - SAM provides commands for initialising, building and deploying functions as well as local testing.
 - for using the web console
   - create a jar or zip file and upload it
   
 - for using SAM
   - test, build and deploy via SAM
-    - test:
-        ```bash
-         sam local invoke functionName yaml-file-name 
-        ```
+    - local test:
+        - initiate api
+            ```bash
+            sam local start-api
+            ```
+        - single invocations
+            ```bash
+            sam local invoke "break-even-kotlin" -e events/event.json
+            ```
     - build: 
         ```bash
+            sam build
         ```
     - deploy: 
         ```bash
+            sam deploy --guided
          ```
    
 - Micronaut and Quarkus offer packages to build functions optimised for lambda
