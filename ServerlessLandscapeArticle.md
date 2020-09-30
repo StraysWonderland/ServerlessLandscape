@@ -603,7 +603,9 @@ Kubeless Includes:
 AWS lambda is among the most popular serverless function plattform vendors.
 
 - upload code via CLI or link to github repo
-
+- supports various different runtimes such as java, nodejs, python, Go ...
+  - custom runtimes can be specified too
+  - micronaut and quarkus provide packages for aws lambda with their own runtime for native executables
 ## workflow
 
 - create functions either via the aws console or via the CLI called SAM
@@ -612,9 +614,16 @@ AWS lambda is among the most popular serverless function plattform vendors.
   
 - for using SAM
   - test, build and deploy via SAM
-    - test: ```bash sam local invoke functionName yaml-file-name```
-    - build: ```bash ```
-    - deploy: ```bash ```
+    - test:
+        ```bash
+         sam local invoke functionName yaml-file-name 
+        ```
+    - build: 
+        ```bash
+        ```
+    - deploy: 
+        ```bash
+         ```
    
 - Micronaut and Quarkus offer packages to build functions optimised for lambda
   - easy native packaging and deployment
@@ -652,7 +661,7 @@ AWS lambda is among the most popular serverless function plattform vendors.
             Name: BreakEvenKotlin
     ```
 
-- workflow is simlified further by the serverless framework
+- workflow is simplified further by the serverless framework
 
 ## Performance
 
