@@ -7,13 +7,13 @@
 
 # what is serverless?
 
-Serverless in the course of this article will be defined as paradigm to simplify deployment of code that is 
+Serverless in the course of this article will be defined as paradigm to simplify and speed up deployment of code that is 
 - event driven
 - short lived
 - has fast startup 
 - abstracted or "hidden" infrastructure
 
-and where this paradigm enables auto load and scale to zero.
+and where this paradigm enables event triggered autoscaling and scale to zero.
 
 
 
@@ -356,7 +356,7 @@ spec:
 
 most active of the platforms
 
-## load testing
+## Performance
 
 ![openfaas test](Images/monitoring_breakeven_kotlin_kubernetes.PNG) 
 --- 
@@ -475,7 +475,7 @@ https://github.com/openfaas/workshop
 
 OpenFaas seems to be quite active and being continuesly developed.
 
-## load testing results
+## Performance
 
 
 Load testing on micronaut break-even function
@@ -607,7 +607,15 @@ AWS lambda is among the most popular serverless function plattform vendors.
 ## workflow
 
 - create functions either via the aws console or via the CLI called SAM
-- 
+- for using the web console
+  - create a jar or zip file and upload it
+  
+- for using SAM
+  - test, build and deploy via SAM
+    - test: ```bash sam local invoke functionName yaml-file-name```
+    - build: ```bash ```
+    - deploy: ```bash ```
+   
 - Micronaut and Quarkus offer packages to build functions optimised for lambda
   - easy native packaging and deployment
 - requires a yaml file
@@ -645,6 +653,9 @@ AWS lambda is among the most popular serverless function plattform vendors.
     ```
 
 - workflow is simlified further by the serverless framework
+
+## Performance
+
 
 ---
 # Azure Functions
