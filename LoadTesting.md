@@ -56,3 +56,11 @@ Each platforms required execution time for a cold start, i.e. when there are no 
 OpenFaas has a very high max execution time if a lot of requests come in at the same time on a cold start.
 Explanation?
 
+
+## AWS
+
+FAT JAR
+cold start: 27.22 ms | 30.36 | 
+warm start 1.31 ms | 1.29
+
+NATIVE EXECUTABLE

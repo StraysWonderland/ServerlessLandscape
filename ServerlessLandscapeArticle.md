@@ -606,14 +606,21 @@ AWS lambda is among the most popular serverless function plattform vendors.
 - supports various different runtimes such as java, nodejs, python, Go ...
   - custom runtimes can be specified too
   - micronaut and quarkus provide packages for aws lambda with their own runtime for native executables
+
 ## workflow
 
 - create functions either via the aws console or via the CLI called SAM
     - SAM provides commands for initialising, building and deploying functions as well as local testing.
 - for using the web console
   - create a jar or zip file and upload it
-  
-- for using SAM
+
+### using Microframeworks
+- Micronaut and Quarkus offer packages to build functions optimised for lambda
+- Application can be deployed either using the lambda java runtime, or by bulding a native executable with a custom runtime provided by the corresponding package
+  - easy native packaging and deployment
+  - ```bash mn create-app info.novatec.break-even --lang=kotlin --features aws-lambda,graalvm ```
+  - either create a jar file or let the aws lambda package create a zip folder to upload
+### using SAM
   - test, build and deploy via SAM
     - local test:
         - initiate api
@@ -633,8 +640,6 @@ AWS lambda is among the most popular serverless function plattform vendors.
             sam deploy --guided
          ```
    
-- Micronaut and Quarkus offer packages to build functions optimised for lambda
-  - easy native packaging and deployment
 - requires a yaml file
     ```yaml
     AWSTemplateFormatVersion: '2010-09-09'
