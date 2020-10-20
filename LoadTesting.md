@@ -59,20 +59,32 @@ Explanation?
 
 ## AWS
 
-FAT JAR
-cold start: 27.22 ms | 30.36 | 
-warm start 1.31 ms | 1.29
+#### FAT JAR
+- cold start: 104.58 ms 
+- warm start 3.89 ms 
 
 NATIVE EXECUTABLE
-
+- cold start: 27.22 ms 
+- warm start 1.31 ms 
 ---
-
-![openfaas test](Images/monitoring_breakeven_kotlin_lambda_dashboard.PNG) 
-
-
 
 API Gateway
 
-max 1024ms
-avg 22ms
-min 17ms
+|     | break-even-kotlin | 
+|:---:|:--------: |
+| mean| 22      | 
+| min | 16      | 
+| max | 1024    | 
+
+Lambda Edge?
+
+- no access to lambda edge on students account, but probably comparably low overhead
+
+|     | break-even-kotlin | 
+|:---:|:--------: |
+| mean| 5.11      | 
+| min | 1.34      | 
+| max | 33.7      | 
+
+execution duration for the lambda
+![openfaas test](Images/monitoring_breakeven_kotlin_lambda_dashboard.PNG) 
