@@ -64,3 +64,15 @@ cold start: 27.22 ms | 30.36 |
 warm start 1.31 ms | 1.29
 
 NATIVE EXECUTABLE
+
+---
+
+![openfaas test](Images/monitoring_breakeven_kotlin_lambda_dashboard.PNG) 
+
+
+
+API Gateway
+
+max 1024ms
+avg 22ms
+min 17ms
