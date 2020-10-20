@@ -70,21 +70,13 @@ Explanation?
 
 API Gateway
 
-|     | break-even-kotlin | 
-|:---:|:--------: |
-| mean| 22      | 
-| min | 16      | 
-| max | 1024    | 
+|     | With API Gateway | Pure Lambda | 
+|:---:|:--------: | :--------: |
+| mean| 22      |  5.11      | 
+| min | 16      |  1.34      | 
+| max | 1024    |  33.7      | 
 
-Lambda Edge?
-
-- no access to lambda edge on students account, but probably comparably low overhead
-
-|     | break-even-kotlin | 
-|:---:|:--------: |
-| mean| 5.11      | 
-| min | 1.34      | 
-| max | 33.7      | 
+- no access to lambda edge on students account, but probably low overhead => comparable to pure lambda stats?
 
 execution duration for the lambda
 ![openfaas test](Images/monitoring_breakeven_kotlin_lambda_dashboard.PNG) 
