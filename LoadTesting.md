@@ -59,13 +59,13 @@ Explanation?
 
 ## AWS
 
-#### FAT JAR
-- cold start: 104.58 ms 
-- warm start 3.89 ms 
+#### FAT JAR vs Native
+|     | FAT JAR | Native | 
+|:---:|:--------: |:------:|
+| cold start | 104.58  | 27.22    | 
+| warm start | 3.89    | 1.31     | 
 
-NATIVE EXECUTABLE
-- cold start: 27.22 ms 
-- warm start 1.31 ms 
+
 ---
 
 API Gateway
