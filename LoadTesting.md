@@ -78,5 +78,7 @@ API Gateway
 
 - no access to lambda edge on students account, but probably low overhead => comparable to pure lambda stats?
 
+- note: billing in steps of 100ms?
+ 
 execution duration for the lambda
 ![openfaas test](Images/monitoring_breakeven_kotlin_lambda_dashboard.PNG) 

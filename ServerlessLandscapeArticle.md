@@ -615,11 +615,15 @@ AWS lambda is among the most popular serverless function plattform vendors.
   - create a jar or zip file and upload it
 
 ### using Microframeworks
+
 - Micronaut and Quarkus offer packages to build functions optimised for lambda
 - Application can be deployed either using the lambda java runtime, or by bulding a native executable with a custom runtime provided by the corresponding package
   - easy native packaging and deployment
   - ```bash mn create-app info.novatec.break-even --lang=kotlin --features aws-lambda,graalvm ```
   - either create a jar file or let the aws lambda package create a zip folder to upload
+  - use lambdas java runtime or custom runtime for native packages definded by the packages
+  - both packages also provide scripts to test application localy via SAM
+  - 
 ### using SAM
   - test, build and deploy via SAM
     - local test:
