@@ -623,7 +623,35 @@ AWS lambda is among the most popular serverless function plattform vendors.
   - either create a jar file or let the aws lambda package create a zip folder to upload
   - use lambdas java runtime or custom runtime for native packages definded by the packages
   - both packages also provide scripts to test application localy via SAM
-  - 
+  
+
+#### functions.zip 
+- contents of function.zip using graalvm to create a executable:
+    - bootstrap
+        ```bash 
+        #!/bin/sh
+        set -euo pipefail
+        ./break-even-mn-lambda -Xmx512m
+        ```
+    - break-even-mn-lambda binary file
+
+- regular function-zip generated:
+```  
+  - io
+    - quarkus 
+      - ...
+  - javax
+    - ...
+  - lib
+    - com.amazonaws....
+    - ...
+  - META-INF
+    - services
+    - MANIFEST.MF
+  - info\novatec\
+    - BreakEvenRequestHandler.class
+  - application.properties
+```
 ### using SAM
   - test, build and deploy via SAM
     - local test:
