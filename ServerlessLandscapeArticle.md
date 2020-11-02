@@ -680,6 +680,18 @@ AWS lambda is among the most popular serverless function plattform vendors.
 
 - workflow is simplified further by the serverless framework
 
+
+#### FAILED:
+maven only deploy.sh version works somewhat
+
+gradle version:
+- includes no deploy.sh or dockerfile
+- gradlew nativeImage failed
+- gradlew dockerBuldNative failed
+- gradlew assemble and then native-image ... failed
+
+maven:
+- sam-local.sh failed
 ## Performance
 
 
@@ -706,7 +718,7 @@ AWS lambda is among the most popular serverless function plattform vendors.
 - openFaas usw nutzen in der Industrie 
 
 - performance vergleich; aws lambda vs knative 
-  - container overhead?
+###  - container overhead?
 - delta zwischen lokalem start und plattform start
   - delta zwischen quarkus, spring usw.
 
@@ -715,3 +727,5 @@ AWS lambda is among the most popular serverless function plattform vendors.
   - ein cold start
   - wie funktioniert der cold start setup?
     - knative via buffer erwähnen
+
+- 
