@@ -635,6 +635,9 @@ AWS lambda is among the most popular serverless function plattform vendors.
         ```
     - break-even-mn-lambda binary file
 
+- function.zip for quarkus:
+  - bootstrap binary file
+
 - regular function-zip generated:
 ```  
   - io
@@ -712,9 +715,14 @@ AWS lambda is among the most popular serverless function plattform vendors.
 #### FAILED:
 maven only deploy.sh version works somewhat
 
+quarkus:
+- mvnw package -Pnative failed => FIXED
+- generates function zip
+- lambda generates runtime exit error
+
 gradle version:
 - includes no deploy.sh or dockerfile
-- gradlew nativeImage failed
+- gradlew nativeImage failed (FIXED to at least produce native executable -> no function.zip tough)
 - gradlew dockerBuldNative failed
 - gradlew assemble and then 
     ``` 
@@ -725,7 +733,6 @@ gradle version:
 
 maven:
 - sam-local.sh failed
-- mvnw package -Pnative failed for quarkus
 - mvnw package -Dnative succesful for micronaut BUT
   - did not actually build a native image?
 - mvn package then native-image failed
