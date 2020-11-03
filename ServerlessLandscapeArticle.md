@@ -716,10 +716,36 @@ gradle version:
 - includes no deploy.sh or dockerfile
 - gradlew nativeImage failed
 - gradlew dockerBuldNative failed
-- gradlew assemble and then native-image ... failed
+- gradlew assemble and then 
+    ``` 
+    native-image --no-server -cp buold/libs/break-even-mn-lambda-0.1-all-jar 
+    ``` 
+    failed
+
 
 maven:
 - sam-local.sh failed
+- mvnw package -Pnative failed for quarkus
+- mvnw package -Dnative succesful for micronaut BUT
+  - did not actually build a native image?
+- mvn package then native-image failed
+
+
+
+complete repo:
+- for the "complete" sample repos: uploading jar does not work -> results in timeout 
+- building example projects function.zip works (via deploy.sh)
+  - default function (json) calls are successfull but return 405 code 
+  - FIXED: use api-gateway test instead of simple function test since application sample uses api gateway for requests
+  - RESULT: 800 ms warm start , 2140 ms cold start
+
+packages
+- aws-lambda + graalvm failed
+- aws-lambda + aws-lambda-customruntime + graalvm failed
+- aws-lambda-customruntime + graalvm failed
+- example "complete" project includes aws + customruntime + graal (doc does not mention customruntime tough)
+- custom runtime package failed -> use only aws + graalvm ?
+  - building works but calling fails with runtime exiting without providing a reason
 ## Performance
 
 
