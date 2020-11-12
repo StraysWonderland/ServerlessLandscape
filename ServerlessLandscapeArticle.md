@@ -625,7 +625,8 @@ AWS lambda is among the most popular serverless function plattform vendors.
   - both frameworks also provide scripts to test application localy via SAM
   
 
-#### functions.zip 
+#### functions.zip
+
 - contents of function.zip using graalvm to create a executable:
     - bootstrap
         ```bash 
@@ -737,8 +738,6 @@ maven:
   - did not actually build a native image?
 - mvn package then native-image failed
 
-
-
 complete repo:
 - for the "complete" sample repos: uploading jar does not work -> results in timeout 
 - building example projects function.zip works (via deploy.sh)
@@ -754,7 +753,8 @@ packages
 - custom runtime package failed -> use only aws + graalvm ?
   - building works but calling fails with runtime exiting without providing a reason
 
-
+=> note:
+    maybe runtime error caused by difference between amazon linux and system used to build native image
 
 ## Performance
 
