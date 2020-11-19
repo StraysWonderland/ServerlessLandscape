@@ -792,4 +792,40 @@ packages
   - wie funktioniert der cold start setup?
     - knative via buffer erwähnen
 
-- 
+
+
+
+#### TEST zu AWS Lambda
+
+functioning repos:
+#### break-even-mn-lambda-test
+- jar (-all)
+- runtime: java 11
+  - info.novatec.BreakEvenRequestHandler::execute
+- test
+{
+  "price": 20,
+  "unitCosts": 10,
+  "fixedCosts": 100
+}
+
+- cold: 9.5 ms
+- warm 1.32 ms
+
+- cant build deploy.sh
+  - gradlew permission denied
+
+
+### Break-even-lambda-mn
+- jar 
+- oder
+- runtime: 
+
+### MICRONAUT GRAALVM LAMBDA
+https://github.com/micronaut-guides/mn-application-aws-lambda-graalvm
+
+### NATIVE IMAGE:
+ kein unterschied zwischen mn-application und mn-serverlessfunction beim ausführen der function.zip in lambda
+
+### kotless shortener
+https://github.com/JetBrains/kotless/tree/master/examples/kotless/shortener
