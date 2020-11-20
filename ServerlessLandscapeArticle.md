@@ -799,6 +799,9 @@ packages
 
 functioning repos:
 #### break-even-mn-lambda-test
+
+https://github.com/StraysWonderland/break-even-mn-lambda
+
 - jar (-all)
 - runtime: java 11
   - info.novatec.BreakEvenRequestHandler::execute
