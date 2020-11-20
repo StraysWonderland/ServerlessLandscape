@@ -812,7 +812,7 @@ https://github.com/StraysWonderland/break-even-mn-lambda
   "fixedCosts": 100
 }
 
-- cold: 9.5 ms
+- cold: 24 ms
 - warm 1.32 ms
 
 - cant build deploy.sh
@@ -832,3 +832,20 @@ https://github.com/micronaut-guides/mn-application-aws-lambda-graalvm
 
 ### kotless shortener
 https://github.com/JetBrains/kotless/tree/master/examples/kotless/shortener
+
+
+ERROR CORRECTION
+in complete:
+increase Xmxx size to at least 256 in bootstrap file to function properly
+
+#### jar: 
+- duration 8.55
+- start: 3965
+- max memory: 170 MB
+
+### graalvm function.zip: 400 ms
+- cold start duration 190
+- cold start up: 473 ms
+- warm start2.16 ms
+
+max memory 235 MB

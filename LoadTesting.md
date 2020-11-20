@@ -66,12 +66,19 @@ Explanation?
 | warm start | 3.89    | 1.31     | 
 
 
+JAR for sample micornaut generated FUNCTION project:
+
+- cold : 392 ms
+- warm: 1.22 ms
+
+
+
 ---
 
 API Gateway
 
 |     | With API Gateway | Pure Lambda | 
-|:---:|:--------: | :--------: |
+|:---:|:-------:| :--------: |
 | mean| 22      |  5.11      | 
 | min | 16      |  1.34      | 
 | max | 1024    |  33.7      | 
@@ -82,3 +89,6 @@ API Gateway
  
 execution duration for the lambda
 ![openfaas test](Images/monitoring_breakeven_kotlin_lambda_dashboard.PNG) 
+
+
+
