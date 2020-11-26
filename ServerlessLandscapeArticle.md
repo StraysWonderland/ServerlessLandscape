@@ -813,81 +813,20 @@ packages
 
 
 ---
-## TODO:
 
-- knative skalierung testen
-- knative scale to zero kommt zu kubernetes?
-  
-- Micronaut -> graalvm -> lambda
-- micronaut and azure functions
-
-- openFaas usw nutzen in der Industrie 
-
-- performance vergleich; aws lambda vs knative 
-###  - container overhead?
-- delta zwischen lokalem start und plattform start
-  - delta zwischen quarkus, spring usw.
-
-- cold start:
-  - viele anfragen auf einmal auf einen cold start
-  - ein cold start
-  - wie funktioniert der cold start setup?
-    - knative via buffer erwähnen
-
-
-
-
-#### TEST zu AWS Lambda
-
-functioning repos:
-#### break-even-mn-lambda-test
-
-https://github.com/StraysWonderland/break-even-mn-lambda
-
-- jar (-all)
-- runtime: java 11
-  - info.novatec.BreakEvenRequestHandler::execute
-- test
-{
-  "price": 20,
-  "unitCosts": 10,
-  "fixedCosts": 100
-}
-
-- cold: 24 ms
-- warm 1.32 ms
-
-- cant build deploy.sh
-  - gradlew permission denied
-
-
-### Break-even-lambda-mn
-- jar 
-- oder
-- runtime: 
-
-### MICRONAUT GRAALVM LAMBDA
-https://github.com/micronaut-guides/mn-application-aws-lambda-graalvm
-
-### NATIVE IMAGE:
- kein unterschied zwischen mn-application und mn-serverlessfunction beim ausführen der function.zip in lambda
-
-### kotless shortener
-https://github.com/JetBrains/kotless/tree/master/examples/kotless/shortener
-
-
-ERROR CORRECTION
+#### ERROR CORRECTION
 in complete:
 increase Xmxx size to at least 256 in bootstrap file to function properly
 
 #### jar: 
-- duration 8.55
-- start: 3965
+- cold start up : 3965
+- warm start : 8.55 ms
+
 - max memory: 170 MB
+- 
+#### graalvm function.zip: 400 ms
+- cold start function duration 190 ms
+- cold start up : 473 ms
+- warm start 2.16 ms
 
-### graalvm function.zip: 400 ms
-- cold start duration 190
-- cold start up: 473 ms
-- warm start2.16 ms
-
-max memory 235 MB
+- max memory 235 MB
