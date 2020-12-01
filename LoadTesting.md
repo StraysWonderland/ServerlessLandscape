@@ -56,22 +56,18 @@ Each platforms required execution time for a cold start, i.e. when there are no 
 OpenFaas has a very high max execution time if a lot of requests come in at the same time on a cold start.
 Explanation?
 
-
 ## AWS
 
 #### FAT JAR vs Native
-|     | FAT JAR | Native | 
-|:---:|:--------: |:------:|
-| cold start | 104.58  | 27.22    | 
-| warm start | 3.89    | 1.31     | 
 
+tested on the break even function written with micronaut in kotlin, using the aws package for the jar execution, and the graalvm and custom-runtime package for the execution using the native image.
 
-JAR for sample micornaut generated FUNCTION project:
-
-- cold : 392 ms
-- warm: 1.22 ms
-
-
+|                             |      FAT JAR |    Native | 
+| :-------------------------: | :----------: | :-------: |
+| cold startup initialisation |      3956 ms |    473 ms |
+| cold start duration         |      104.58  |    27.22  | 
+| warm start                  |      3.89    |    1.31   | 
+| memory usage average        |      170 MB  |    146 MB |
 
 ---
 
