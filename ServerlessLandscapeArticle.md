@@ -650,25 +650,29 @@ AWS lambda is among the most popular serverless function plattform vendors.
   - micronaut and quarkus provide packages for aws lambda with their own runtime for native executables
 
 ## workflow
-
 - create functions either via the aws console or via the CLI called SAM
     - SAM provides commands for initialising, building and deploying functions as well as local testing.
 - for using the web console
   - create a jar or zip file and upload it
 
 ### using Microframeworks
-
 - Micronaut and Quarkus offer packages to build functions optimised for lambda
 - Application can be deployed either using the lambda java runtime, or by bulding a native executable with a custom runtime provided by the corresponding package
   - easy native packaging and deployment
   - ```bash mn create-app info.novatec.break-even --lang=kotlin --features aws-lambda,graalvm ```
-  - either create a jar file or let the aws lambda package create a zip folder to upload
+  - either create a jar file 
+  - or let the aws lambda package create a zip folder to upload
+    - project requires a bootstrap file
+    - edit bootsrap file to include
+    - increase Xmxx size to at least 256 in bootstrap file to function properly
+    - generate a native image preferably with a amazon-linux-docker-image
+      - micronaut projects that include the aws and graalvm packages include a deploy.sh script and a dockerfile to build a suitable native image for lambda
   - use lambdas java runtime or custom runtime for native executables
   - both frameworks also provide scripts to test application localy via SAM
   
 
-#### functions.zip
-
+###  Contents of functions.zip
+#### Using graalvm package
 - contents of function.zip using graalvm to create a executable:
     - bootstrap
         ```bash 
@@ -678,10 +682,7 @@ AWS lambda is among the most popular serverless function plattform vendors.
         ```
     - break-even-mn-lambda binary file
 
-- function.zip for quarkus:
-  - bootstrap binary file
-
-- regular function-zip generated:
+#### Generating a function.zip without graalvm
 ```  
   - io
     - quarkus 
@@ -727,7 +728,6 @@ AWS lambda is among the most popular serverless function plattform vendors.
     Api:
         EndpointConfiguration: REGIONAL
     Resources:
-
     BreakEvenKotlin:
         Type: AWS::Serverless::Function
         Properties:
@@ -743,7 +743,6 @@ AWS lambda is among the most popular serverless function plattform vendors.
             Properties:
                 Path: /{proxy+}
                 Method: any
-
     Outputs:
         BreakEvenKotlin:
             Description: URL for application
@@ -752,8 +751,24 @@ AWS lambda is among the most popular serverless function plattform vendors.
             Name: BreakEvenKotlin
     ```
 
-- workflow is simplified further by the serverless framework
 
+## Performance
+
+
+---
+# Azure Functions
+
+--- 
+
+# Serverless Framework
+
+- simplifies configuration and deployment of functions to aws lambda, azure functions etc.
+- streamlines deployment across different vendors
+
+---
+
+
+# AWS ISSUES
 
 #### FAILED:
 maven only deploy.sh version works somewhat
@@ -798,25 +813,10 @@ packages
 => note:
     maybe runtime error caused by difference between amazon linux and system used to build native image
 
-## Performance
-
-
----
-# Azure Functions
-
---- 
-
-# Serverless Framework
-
-- simplifies configuration and deployment of functions to aws lambda, azure functions etc.
-- streamlines deployment across different vendors
-
-
----
-
-#### ERROR CORRECTION
+## ERROR CORRECTION
 in complete:
 increase Xmxx size to at least 256 in bootstrap file to function properly
+
 
 #### jar: 
 - cold start up : 3965
@@ -830,3 +830,16 @@ increase Xmxx size to at least 256 in bootstrap file to function properly
 - warm start 2.16 ms
 
 - max memory 235 MB
+
+
+new test
+
+graalvm break-even-mn-lambda
+
+###  cold
+init duration: 415 ms
+duration: 182 ms
+memory 146 mb
+
+### warm
+duration 1.96 ms bis 119 ms
