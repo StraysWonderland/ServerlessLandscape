@@ -151,12 +151,12 @@ Quarkus provides a set if bst-of-Breed Libraries and Standards to extend your fu
 - the liveness check accessible at /health/live
     ```java
     @Liveness
-    ``` 
+    ```
 
 - the readiness check accessible at /health/ready
     ```java 
     @Readiness
-    ``` 
+    ```
 
 ### Implementing Health check
 
@@ -172,7 +172,7 @@ public class SimpleHealthCheck
             up("Simple health check");
     }
 }
-```  
+```
 
 ## Extensions: Metrics
 
@@ -253,13 +253,10 @@ CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
 
 It enables you to write applications in Java, Kotlin or Groovy.
 
-
 - tailored for graalvm
 - fast startup time
 - reduced memory footprint
 -  compile time dependency injection instead of reflection
-
-
 
     ```java
     @Controller("/")
@@ -278,7 +275,6 @@ It enables you to write applications in Java, Kotlin or Groovy.
 ## Micronaut & Azure functions?
 
 
-
 # Kotless
 
 "Kotlin serverless framework"
@@ -287,8 +283,8 @@ Focus on simplifying serverless deployment creation workflow
 
 consists of:
 - DSL to define serverless applications
-  - also offers support for ktor or spring boot
-- Gradle Plugin to deploy to AWS (or locally)
+- also offers support for ktor or spring boot
+- Gradle Plugin to deploy directly to AWS or test locally
 
 
 ## Workflow
@@ -296,32 +292,25 @@ consists of:
 add to gradle.build.kts
 ```yaml
 import io.kotless.plugin.gradle.dsl.kotless
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
-
-group = "com.example.kotless"
-version = "0.1"
-
+.
+.
+.
 plugins {
    kotlin("jvm") version "1.3.61" apply true
    id("io.kotless") version "0.1.3" apply true
 }
-
+.
+.
+.
 repositories {
    jcenter()
-   mavenCentral()
 }
-
+.
+.
+.
 dependencies {
-   implementation(kotlin("stdlib"))
    implementation("io.kotless", "lang", "0.1.3")
-}
-
-tasks.withType<KotlinJvmCompile> {
-   kotlinOptions {
-       jvmTarget = "1.8"
-       languageVersion = "1.3"
-       apiVersion = "1.3"
-   }
+   ...
 }
 
 ```
@@ -330,7 +319,8 @@ tasks.withType<KotlinJvmCompile> {
   - execute the gradle -> kotless -> local task
 
 
-
+## References
+- [zero to lambda](https://hadihariri.com/2020/05/12/from-zero-to-lamda-with-kotless/)
 
 ---
 
@@ -358,7 +348,9 @@ Nameworthy examples are:
 - Nuclio
 - OpenFaas
   
+
 We will take a look into a few of those
+
 # Knative
 
 "Kubernetes-based platform to deploy and manage modern serverless workloads."
@@ -464,7 +456,7 @@ Youll have to specify the yaml configuration tailored for openfaas and let the f
 OpenFaas also offers a function-store with some useful predefined functions such as sentiment analysis, face detection, text to speech and nsfw detection.
 These functions can easily be deployed via the faas-cli directly from the store.
 Developers can also contribute to the function store, which may lead to a great variety of ready to use functions in the future.
- 
+
 Auto-scaling in OpenFaas can be configured within the yaml file of a deployed function.
 Per default it is set to always keep at least one replica, and scale the number of replicas up to a maximum of 20 if a large amount of requests come in.
 This means, that per default, there is no scale-to-zero but that at all times one image is kept up and running for each function.
@@ -603,7 +595,7 @@ So wether you want to deploy serverless functions on a cloud vendor architecture
 - Issues: 121 
 
 
---- 
+---
 ---
 
 # RIFF is for functions
@@ -639,7 +631,10 @@ Kubeless Includes:
 
 # Deployment on FAAS vendors
 
+Probably the most common approach to serverless is to deploy your code to one of the popular serverless function platform vendors such as AWS lambda, Azure Functions or Google Cloud Functions.
 
+These vendors offer you a platform to which you, with a little deployment configuration, can directly deploy your code and the platform takes care of and hides all the required infrastructure configuration from the developer.
+The configuration of your deployment usually contains vendor specific commands.
 # AWS lambda
 
 AWS lambda is among the most popular serverless function plattform vendors.
@@ -717,7 +712,7 @@ AWS lambda is among the most popular serverless function plattform vendors.
     - deploy: 
         ```bash
             sam deploy --guided
-         ```
+        ```
    
 - requires a yaml file
     ```yaml
@@ -758,7 +753,7 @@ AWS lambda is among the most popular serverless function plattform vendors.
 ---
 # Azure Functions
 
---- 
+---
 
 # Serverless Framework
 
@@ -768,15 +763,20 @@ AWS lambda is among the most popular serverless function plattform vendors.
 ---
 
 
-# AWS ISSUES
+#  ISSUES
 
-#### FAILED:
-maven only deploy.sh version works somewhat
+## AWS
+### FAILED
+- maven only deploy.sh version works somewhat
 
 quarkus:
 - mvnw package -Pnative failed => FIXED
+
 - generates function zip
+
 - lambda generates runtime exit error
+
+  
 
 gradle version:
 - includes no deploy.sh or dockerfile
@@ -785,7 +785,7 @@ gradle version:
 - gradlew assemble and then 
     ``` 
     native-image --no-server -cp buold/libs/break-even-mn-lambda-0.1-all-jar 
-    ``` 
+    ```
     failed
 
 
@@ -813,7 +813,7 @@ packages
 => note:
     maybe runtime error caused by difference between amazon linux and system used to build native image
 
-## ERROR CORRECTION
+### ERROR CORRECTION
 in complete:
 increase Xmxx size to at least 256 in bootstrap file to function properly
 
@@ -843,3 +843,8 @@ memory 146 mb
 
 ### warm
 duration 1.96 ms bis 119 ms
+
+
+## KOTLESS:
+
+aws educate doesnt allow generating users; so uploading code via direct kotless deployment doesnt work or needs a workaround
