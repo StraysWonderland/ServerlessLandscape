@@ -82,7 +82,7 @@ tested on the break even function written with micronaut in kotlin, using the aw
 | min  | 16               | 1.34        | 
 | max  | 1024             | 33.7        | 
 
-### using native image function
+####  using native image function
 
 |      | With API Gateway | Pure Lambda | 
 | :--: | :--------------: | :---------: |
