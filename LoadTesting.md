@@ -1,36 +1,39 @@
 
 # Load Testing
 
-## microframework comparison
+# microframework comparison
 
 Comparing the run time of the break even function written in different Microframeworks.
 Comparison is done by running them localy via minikube and load testing with locust.
 
-|     | Micronaut | Quarkus | delta |
-|:---:|:--------: |:------:|:----:|
-| mean| 13        | 10     | 3    |
-| min | 2         | 3      | -1   |
-| max | 50        | 44     | 6    |
+|      | Micronaut | Quarkus | delta |
+| :--: | :-------: | :-----: | :---: |
+| mean | 13        | 10      | 3     |
+| min  | 2         | 3       | -1    |
+| max  | 50        | 44      | 6     |
 
 Since both frameworks use graalVM to create a native executable, the execution time is quite similar with no significant difference betweend them
 
-### comparison to spring 
-|     | Micronaut | SPRING | delta |
-|:---:|:--------: |:------:|:----:|
-| mean| 13        | 0     | 0   |
-| min | 2         | 0     | 0   |
-| max | 50        | 0     | 0   |
+## comparison to spring 
+|      | Micronaut | SPRING | delta  |
+| :--: |:--------: | :----: | :----: |
+| mean | 13        | 0      | 0      |
+| min  | 2         | 0      | 0      |
+| max  | 50        | 0      | 0      |
 
-## platform comparison
+
+---
+
+# Platform comparison
 
 Comparing the break even function written with Micronaut on different Serverless Platforms.
 Load Testing done via locust framework.
 
-|     | local | Knative| OpenFaas | FN | AWS | Azure |
-|:---:|:--------:  |:---:|:------:|:----:|:---: | :---:  |
-| mean| 13         | 6  | 16     | 0  | 0 | 0 |
-| min | 2          | 3  | 5      | 0  | 0 | 0 |
-| max | 50         | 23 |92     | 0  | 0 | 0 |
+|     | local  | Knative | OpenFaas | FN    | AWS Lambda| Azure |
+|:---:| :----: | :-----: | :------: |:----: |:--------: | :---: |
+| mean| 13     | 6       | 16       | 0     | 0         | 0     |
+| min | 2      | 3       | 5        | 0     | 0         | 0     |
+| max | 50     | 23      | 92       | 0     | 0         | 0     |
 
 - significant difference between knative and OpenFaas
 
@@ -40,25 +43,25 @@ Each platforms required execution time for a cold start, i.e. when there are no 
 
 #### Exectution time for a single request
 
-|     |  Knative | OpenFaas | FN | AWS | Azure |
-|:---:| :---: |:------:|:----:|:---: | :---:  |
-| execution time|   0   | 260     | 0  | 0 | 0 |
+|          |  Knative | OpenFaas | FN    | AWS Lambda | Azure |
+| :------: | :------: | :------: | :---: | :--------: | :---: |
+| duration | 0        | 260      | 0     | 0          | 0     |
 
 #### Starting a lot of requests on cold start
 
-|     | Knative | OpenFaas | FN  | AWS | Azure |
-|:---:|:-------:|:--------:|:---:|:---:|:---:  |
-| mean|         | 20       | 0   | 0   | 0 |
-| min |         | 7        | 0   | 0   | 0 |
-| max |         | 9326     | 0   | 0   | 0 |
-| avg |         | 260      | 0   | 0   | 0 |
+|      | Knative | OpenFaas | FN  | AWS | Azure |
+|:---: |:-------:|:--------:|:---:|:---:|:-----:|
+| mean |         | 20       | 0   | 0   | 0     |
+| min  |         | 7        | 0   | 0   | 0     |
+| max  |         | 9326     | 0   | 0   | 0     |
+| avg  |         | 260      | 0   | 0   | 0     |
 
 OpenFaas has a very high max execution time if a lot of requests come in at the same time on a cold start.
 Explanation?
 
 ## AWS
 
-#### FAT JAR vs Native
+###  Jar vs Native
 
 tested on the break even function written with micronaut in kotlin, using the aws package for the jar execution, and the graalvm and custom-runtime package for the execution using the native image.
 
@@ -69,15 +72,23 @@ tested on the break even function written with micronaut in kotlin, using the aw
 | warm start                  |      3.89    |    1.31   | 
 | memory usage average        |      170 MB  |    146 MB |
 
----
+### API Gateway
 
-API Gateway
+#### using jar function
 
-|     | With API Gateway | Pure Lambda | 
-|:---:|:-------:| :--------: |
-| mean| 22      |  5.11      | 
-| min | 16      |  1.34      | 
-| max | 1024    |  33.7      | 
+|      | With API Gateway | Pure Lambda | 
+| :--: | :--------------: | :---------: |
+| mean | 22               | 5.11        | 
+| min  | 16               | 1.34        | 
+| max  | 1024             | 33.7        | 
+
+### using native image function
+
+|      | With API Gateway | Pure Lambda | 
+| :--: | :--------------: | :---------: |
+| mean |                  |             | 
+| min  |                  |             | 
+| max  |                  |             | 
 
 - no access to lambda edge on students account, but probably low overhead => comparable to pure lambda stats?
 
