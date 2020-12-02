@@ -660,10 +660,12 @@ AWS lambda is among the most popular serverless function plattform vendors.
     - project requires a bootstrap file
     - edit bootsrap file to include
     - increase Xmxx size to at least 256 in bootstrap file to function properly
+    - also set the memory usage on lambda accordingly, either via config file or in the web console
     - generate a native image preferably with a amazon-linux-docker-image
       - micronaut projects that include the aws and graalvm packages include a deploy.sh script and a dockerfile to build a suitable native image for lambda
   - use lambdas java runtime or custom runtime for native executables
   - both frameworks also provide scripts to test application localy via SAM
+  
   
 
 ###  Contents of functions.zip
