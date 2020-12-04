@@ -307,6 +307,9 @@ dependencies {
 ## References
 - [zero to lambda](https://hadihariri.com/2020/05/12/from-zero-to-lamda-with-kotless/)
 
+### KOTLESS GRAALVM SUPPORT IN BETA
+- [kotless guide](https://xscode.com/JetBrains/kotless)
+
 ---
 
 # Deployment Anywhere
