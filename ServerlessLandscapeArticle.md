@@ -274,7 +274,7 @@ consists of:
 
 
 ## Workflow
-add to gradle.build.kts
+- add to gradle.build.kts
 ```yaml
 import io.kotless.plugin.gradle.dsl.kotless
 .
@@ -297,11 +297,20 @@ dependencies {
    implementation("io.kotless", "lang", "0.1.3")
    ...
 }
-
+```
+- write function with standard kotlin using kotless annotations for paths
+```java
+    @Post("/")
+    fun execute(request: BreakEvenRequest): BreakEvenResponse {
+        val breakEvenPoint = ceil(request.fixedCosts / (request.price - request.unitCosts)).toInt()
+        return BreakEvenResponse(breakEvenPoint = breakEvenPoint)
+    }
 ```
 
 - testing locally:
   - execute the gradle -> kotless -> local task
+
+- upload directly to aws using the kotless gradle task
 
 
 ## References
