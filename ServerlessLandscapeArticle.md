@@ -275,37 +275,37 @@ consists of:
 
 ## Workflow
 - add to gradle.build.kts
-```yaml
-import io.kotless.plugin.gradle.dsl.kotless
-.
-.
-.
-plugins {
-   kotlin("jvm") version "1.3.61" apply true
-   id("io.kotless") version "0.1.3" apply true
-}
-.
-.
-.
-repositories {
-   jcenter()
-}
-.
-.
-.
-dependencies {
-   implementation("io.kotless", "lang", "0.1.3")
-   ...
-}
-```
+    ```yaml
+    import io.kotless.plugin.gradle.dsl.kotless
+    .
+    .
+    .
+    plugins {
+    kotlin("jvm") version "1.3.61" apply true
+    id("io.kotless") version "0.1.3" apply true
+    }
+    .
+    .
+    .
+    repositories {
+    jcenter()
+    }
+    .
+    .
+    .
+    dependencies {
+    implementation("io.kotless", "lang", "0.1.3")
+    ...
+    }
+    ```
 - write function with standard kotlin using kotless annotations for paths
-```java
+    ```java
     @Post("/")
     fun execute(request: BreakEvenRequest): BreakEvenResponse {
         val breakEvenPoint = ceil(request.fixedCosts / (request.price - request.unitCosts)).toInt()
         return BreakEvenResponse(breakEvenPoint = breakEvenPoint)
     }
-```
+    ```
 
 - testing locally:
   - execute the gradle -> kotless -> local task
