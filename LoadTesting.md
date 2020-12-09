@@ -30,10 +30,10 @@ Comparing the break even function written with Micronaut on different Serverless
 Load Testing done via locust framework.
 
 |     | local  | Knative | OpenFaas | FN    | AWS Lambda| Azure |
-|:---:| :----: | :-----: | :------: |:----: |:--------: | :---: |
-| mean| 13     | 6       | 16       | 0     | 0         | 0     |
-| min | 2      | 3       | 5        | 0     | 0         | 0     |
-| max | 50     | 23      | 92       | 0     | 0         | 0     |
+|:---:| :----: | :-----: | :------: |:----: | :--------:| :---: |
+| mean| 13     | 6       | 16       | 0     | 5.11      | 0     |
+| min | 2      | 3       | 5        | 0     | 1.34      | 0     |
+| max | 50     | 23      | 92       | 0     | 33.7      | 0     |
 
 - significant difference between knative and OpenFaas
 
@@ -41,7 +41,7 @@ Load Testing done via locust framework.
 
 Each platforms required execution time for a cold start, i.e. when there are no active replicas.
 
-#### Exectution time for a single request
+#### Execution time for a single request
 
 |          |  Knative | OpenFaas | FN    | AWS Lambda | Azure |
 | :------: | :------: | :------: | :---: | :--------: | :---: |
