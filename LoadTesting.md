@@ -80,7 +80,7 @@ tested on the break even function written with micronaut in kotlin, using the aw
 | :--: | :--------------: | :---------: |
 | mean | 22               | 5.11        | 
 | min  | 16               | 1.34        | 
-| max  | 1024             | 33.7        | 
+| max  | 1724             | 33.7        | 
 
 ####  using native image function
 
