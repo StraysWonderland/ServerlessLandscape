@@ -88,7 +88,7 @@ tested on the break even function written with micronaut in kotlin, using the aw
 | :--: | :--------------: | :---------: |
 | mean | 19 ms            |             | 
 | min  | 16 ms            |             | 
-| max  | 277 ms           |             | 
+| max  | 517 ms           |             | 
 
 - no access to lambda edge on students account, but probably low overhead => comparable to pure lambda stats?
 
