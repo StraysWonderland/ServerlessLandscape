@@ -298,7 +298,8 @@ consists of:
     ...
     }
     ```
-- write function with standard kotlin using kotless annotations for paths
+
+- Write function with standard kotlin using kotless annotations for paths
     ```java
     @Post("/")
     fun execute(request: BreakEvenRequest): BreakEvenResponse {
@@ -308,9 +309,30 @@ consists of:
     ```
 
 - testing locally:
-  - execute the gradle -> kotless -> local task
-
-- upload directly to aws using the kotless gradle task
+  - execute the *gradle.kotless.local* task 
+  - 
+- Upload directly to aws using the kotless gradle task
+  - add to *build.gradle.kts*
+  ```yaml
+  kotless {
+    config { 
+        bucket = "my.kotless.bucket"
+  
+        terraform {
+            profile = "my.kotless.user"
+            region = "eu-west-1"
+        }
+    }
+    webapp {
+        lambda {
+            kotless {
+                packages = setOf("com.example.kotless")
+            }
+        }
+    }
+  } 
+  ```
+  - run gradle *deploy* task
 
 
 ## References
