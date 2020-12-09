@@ -6,7 +6,6 @@
 - [faastener](https://faastener.github.io/explorer)
 
 # what is serverless?
-
 Serverless in the course of this article will be defined as paradigm to simplify and speed up deployment of code that is 
 - event driven
 - short lived
@@ -15,10 +14,7 @@ Serverless in the course of this article will be defined as paradigm to simplify
 
 and where this paradigm enables event triggered autoscaling and scale to zero.
 
-
-
 # Development
-
 Using Microframeworks that ease the creation of serverless functions has the benefit of reusing the skillset, knowledge and workflow of developers familiar with microservices.
 No need to switch to a new framework or workflow if the framework you are using for your microservices also is suited for the creation of serverless functions.
 
@@ -27,7 +23,6 @@ There is no new language or development method to "learn" and the workflow remai
 
 
 # Quarkus
-
 Quarkus is a full-stack, Kubernetes-native Java framework mainly aimed at building microservices and tailored for Java virtual machines (JVMs) and native compilation via GraalVM, optimising Java specifically for containers and enabling it to become an effective platform for serverless, cloud, and Kubernetes environments.
 
 
@@ -50,7 +45,6 @@ Quarkus is a full-stack, Kubernetes-native Java framework mainly aimed at buildi
 
 
 ## Scaffolding
-
 Quarkus allows to easily setup a scaffold project that includes a simple hello world function and a test.
 This boilerplate project helps to quickly set-up a function with minimal effort.
 
@@ -65,7 +59,6 @@ mvn io.quarkus:quarkus-maven-plugin:1.1.1.Final:create \
 - or create via https://code.quarkus.io/
 
 ## BreakEvenFunction
-
 Example of a simple BreakEvenFunction achieved via Quarkus.
 
 No Additional code or classes ( no application class either ) needed.
@@ -85,17 +78,13 @@ public BreakEvenResponse calculate(@QueryParam double price,
 ```
 
 ### Run the Application in development mode with hot reload
-
 Making changes to the code will automatically and instantly recompile and update the application, making local testing easy.
 
 ```bash
 ./mvnw compile quarkus:dev
 ```
 
-
-
 ## Testing
-
 Example of creating a Test for the BreakEvenFunction.
 Quarkus annotations for easy setup.
 
@@ -131,7 +120,6 @@ Explicit test run possible as well via:
 ```
 
 ## Extensions: Health
-
 Quarkus provides a set if bst-of-Breed Libraries and Standards to extend your functions with additional metric collection, health services or security tools.
 
 ### Adding the package
@@ -248,7 +236,6 @@ CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
 ---
 
 # Micronaut
-
 "A modern, JVM-based, full-stack framework for building modular, easily testable microservice and serverless applications."
 
 It enables you to write applications in Java, Kotlin or Groovy.
@@ -276,7 +263,6 @@ It enables you to write applications in Java, Kotlin or Groovy.
 
 
 # Kotless
-
 "Kotlin serverless framework"
 
 Focus on simplifying serverless deployment creation workflow
@@ -288,44 +274,55 @@ consists of:
 
 
 ## Workflow
-
-add to gradle.build.kts
-```yaml
-import io.kotless.plugin.gradle.dsl.kotless
-.
-.
-.
-plugins {
-   kotlin("jvm") version "1.3.61" apply true
-   id("io.kotless") version "0.1.3" apply true
-}
-.
-.
-.
-repositories {
-   jcenter()
-}
-.
-.
-.
-dependencies {
-   implementation("io.kotless", "lang", "0.1.3")
-   ...
-}
-
-```
+- add to gradle.build.kts
+    ```yaml
+    import io.kotless.plugin.gradle.dsl.kotless
+    .
+    .
+    .
+    plugins {
+    kotlin("jvm") version "1.3.61" apply true
+    id("io.kotless") version "0.1.3" apply true
+    }
+    .
+    .
+    .
+    repositories {
+    jcenter()
+    }
+    .
+    .
+    .
+    dependencies {
+    implementation("io.kotless", "lang", "0.1.3")
+    ...
+    }
+    ```
+- write function with standard kotlin using kotless annotations for paths
+    ```java
+    @Post("/")
+    fun execute(request: BreakEvenRequest): BreakEvenResponse {
+        val breakEvenPoint = ceil(request.fixedCosts / (request.price - request.unitCosts)).toInt()
+        return BreakEvenResponse(breakEvenPoint = breakEvenPoint)
+    }
+    ```
 
 - testing locally:
   - execute the gradle -> kotless -> local task
+
+- upload directly to aws using the kotless gradle task
 
 
 ## References
 - [zero to lambda](https://hadihariri.com/2020/05/12/from-zero-to-lamda-with-kotless/)
 
+### KOTLESS GRAALVM SUPPORT IN BETA
+- [kotless guide](https://xscode.com/JetBrains/kotless)
+
+ => problem with request => @introspection?
 ---
 
 # Deployment Anywhere
-
 - use language & infrastructure youre familiar with
 - one system to manage and operate for all applications
 - only serverless from a user perspective  
@@ -348,11 +345,9 @@ Nameworthy examples are:
 - Nuclio
 - OpenFaas
   
-
 We will take a look into a few of those
 
 # Knative
-
 "Kubernetes-based platform to deploy and manage modern serverless workloads."
 
 ## Benefits
@@ -391,11 +386,12 @@ spec:
 most active of the platforms
 
 ## Performance
-
 ![openfaas test](Images/monitoring_breakeven_kotlin_kubernetes.PNG) 
---- 
+
 
 ## cold start buffering
+
+--- 
 
 # OpenFaas
 OpenFaaS is a framework for building Serverless functions on top of containers and deployment on any cloud or on-premise.
@@ -466,6 +462,7 @@ OpenFaas does however support scale from and to zero by editing the configuratio
 ```bash 
 kubectl scale deployment --replicas=0 break-even-kotlin -n openfaas-fn 
 ```
+
 ## benefits
 - run on any public or private cloud
 - Run container based functions on own servers
@@ -473,9 +470,7 @@ kubectl scale deployment --replicas=0 break-even-kotlin -n openfaas-fn
 
 
 ## workflow
-
 https://github.com/openfaas/workshop
-
 
 - create kubernetes or docker swarm cluster
 - install openfaas using either helm or arkade
@@ -501,7 +496,6 @@ https://github.com/openfaas/workshop
 
 
 ## stats
-
 - 18.1 stars
 - 1.5k forks
 - 1,912 regular commits ( mostly lass than a week between commits)
@@ -510,12 +504,10 @@ https://github.com/openfaas/workshop
 OpenFaas seems to be quite active and being continuesly developed.
 
 ## Performance
-
-
 Load testing on micronaut break-even function
-| Median        | 90%ile | Min  | Max |
-| :-----------: |:------:|:----:|:---:|
-| 16    | 53 | 5 | 92 |
+| Median | 90%ile | Min  | Max |
+| :----: |:------:|:----:|:---:|
+| 16     | 53     | 5    | 92  |
 
 ![openfaas test](Images/monitoring_breakeven_kotlin_openfaas.PNG) 
 ![openfaas test](Images/response_times_openfaas.PNG) 
@@ -530,7 +522,6 @@ Load testing on micronaut break-even function
 ---
 
 # FN Project
-
 The Fn project is, as the developers describe it on their [homepage](https://fnproject.io/), an open-source container-native functions-as-a-service platform that you can run anywhere.
 So wether you want to deploy serverless functions on a cloud vendor architecture or on-premise, Fn project delivers easy to use deployment of functions written in any programming language.
 
@@ -585,7 +576,6 @@ So wether you want to deploy serverless functions on a cloud vendor architecture
     ```
 
 ## stats
-
 - Stars: 4700
 - Forks: 348
 - Commits: 3400
@@ -599,7 +589,6 @@ So wether you want to deploy serverless functions on a cloud vendor architecture
 ---
 
 # RIFF is for functions
-
 riff is an Open Source platform for building and running Functions, Applications, and Containers on Kubernetes. 
 
 - simplifies deployment and iteration workflow
@@ -616,7 +605,6 @@ riff is an Open Source platform for building and running Functions, Applications
 ---
 
 # Kubeless
-
 Kubeless is a Kubernetes-native serverless framework that lets you deploy functions without having to worry about the underlying infrastructure. It is designed to be deployed on top of a Kubernetes cluster and take advantage of all the great Kubernetes primitives. If you are looking for an open source serverless solution that clones what you can find on AWS Lambda, Azure Functions, and Google Cloud Functions, Kubeless is for you!
 
 Kubeless Includes:
@@ -630,13 +618,12 @@ Kubeless Includes:
 
 
 # Deployment on FAAS vendors
-
 Probably the most common approach to serverless is to deploy your code to one of the popular serverless function platform vendors such as AWS lambda, Azure Functions or Google Cloud Functions.
 
 These vendors offer you a platform to which you, with a little deployment configuration, can directly deploy your code and the platform takes care of and hides all the required infrastructure configuration from the developer.
 The configuration of your deployment usually contains vendor specific commands.
-# AWS lambda
 
+# AWS lambda
 AWS lambda is among the most popular serverless function plattform vendors.
 
 - upload code via CLI or link to github repo
@@ -758,7 +745,6 @@ AWS lambda is among the most popular serverless function plattform vendors.
 ---
 
 # Serverless Framework
-
 - simplifies configuration and deployment of functions to aws lambda, azure functions etc.
 - streamlines deployment across different vendors
 

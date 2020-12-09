@@ -6,11 +6,11 @@
 Comparing the run time of the break even function written in different Microframeworks.
 Comparison is done by running them localy via minikube and load testing with locust.
 
-|      | Micronaut | Quarkus | delta |
-| :--: | :-------: | :-----: | :---: |
-| mean | 13        | 10      | 3     |
-| min  | 2         | 3       | -1    |
-| max  | 50        | 44      | 6     |
+|      | Micronaut | Quarkus | Kotless |
+| :--: | :-------: | :-----: | :---:   |
+| mean | 13        | 10      |         |
+| min  | 2         | 3       |         |
+| max  | 50        | 44      |         |
 
 Since both frameworks use graalVM to create a native executable, the execution time is quite similar with no significant difference betweend them
 
