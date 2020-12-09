@@ -84,11 +84,11 @@ tested on the break even function written with micronaut in kotlin, using the aw
 
 ####  using native image function
 
-|      |      With API Gateway | Pure Lambda | 
-| :--: | :-------------------: | :---------: |
-| mean |      21 ms            |             | 
-| min  |                       |             | 
-| max  |                       |             | 
+|      | With API Gateway | Pure Lambda | 
+| :--: | :--------------: | :---------: |
+| mean | 19 ms            |             | 
+| min  | 16 ms            |             | 
+| max  | 277 ms           |             | 
 
 - no access to lambda edge on students account, but probably low overhead => comparable to pure lambda stats?
 
