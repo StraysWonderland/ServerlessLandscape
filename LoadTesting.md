@@ -78,7 +78,7 @@ tested on the break even function written with micronaut in kotlin, using the aw
 | :--: | :--------------: | :------------------ | ----------: |
 | mean | 22               | 19                  | 5.11        | 
 | min  | 16               | 16                  | 1.34        | 
-| max  | 1724             | 517                 | 437         | 
+| max  | 1724             | 517                 | 473 - 3956  | 
 
 
 
