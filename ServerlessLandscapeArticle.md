@@ -311,6 +311,25 @@ consists of:
   - execute the gradle -> kotless -> local task
 
 - upload directly to aws using the kotless gradle task
+  - add to build.gradle.kts
+    ```yaml
+    kotless {
+       config { 
+           bucket = "my.kotless.bucket"
+           terraform {
+               profile = "my.kotless.user"
+               region = "eu-west-1"
+           }
+       }
+       webapp {
+           lambda {
+               kotless {
+                   packages = setOf("com.example.kotless")
+               }
+           }
+       }
+    }
+    ```
 
 
 ## References
