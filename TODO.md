@@ -3,7 +3,7 @@
 - [ ] knative skalierung testen
 - [ ] knative scale to zero kommt zu kubernetes?
   
-- [ ] Micronaut -> graalvm -> lambda
+- [x] Micronaut -> graalvm -> lambda
 - [ ] micronaut and azure functions
 
 - [ ] openFaas usw nutzen in der Industrie 

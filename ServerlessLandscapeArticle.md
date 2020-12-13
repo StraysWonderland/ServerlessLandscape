@@ -258,6 +258,26 @@ It enables you to write applications in Java, Kotlin or Groovy.
         }
     }
     ```
+## Micronaut & AWS Lambda
+Micronaut offers packages/features to create functions designed for deployment on aws lambda.
+These packages are mainly the "aws-lambda" package, and when planing to deploy a native executable created via graalvm, also the "graal-vm" and "aws-lambda-custom-runtie" packages.
+
+Either add these packages to new projects via the _Micronaut_Launch_ website or the CLI, or add them into an existing project.
+
+When writing the function, simply include the ```java extends MicronautRequestHandle<T,T> ```
+  ```java
+  @Introspected
+  public class BreakEvenRequestHandler extends MicronautRequestHandler<BreakEvenRequest, BreakEvenResponse> {  // <1>
+  
+      @Override
+      public BreakEvenResponse execute(BreakEvenRequest request) {
+          BreakEvenResponse breakEvenResponse = new BreakEvenResponse();
+          breakEvenResponse.breakEvenPoint = (int) Math.ceil(request.fixedCosts / (request.price - request.unitCosts));
+          return breakEvenResponse;
+      }
+  }
+  ```
+If you include the _graalvm_ and _aws-lambda-custom-runtime_ packages, building the project will generate a function.zip archive, that can be uploaded directly to aws lambda.
 
 ## Micronaut & Azure functions?
 
@@ -298,7 +318,8 @@ consists of:
     ...
     }
     ```
-- write function with standard kotlin using kotless annotations for paths
+
+- Write function with standard kotlin using kotless annotations for paths
     ```java
     @Post("/")
     fun execute(request: BreakEvenRequest): BreakEvenResponse {
@@ -308,28 +329,30 @@ consists of:
     ```
 
 - testing locally:
-  - execute the gradle -> kotless -> local task
-
-- upload directly to aws using the kotless gradle task
-  - add to build.gradle.kts
-    ```yaml
-    kotless {
-       config { 
-           bucket = "my.kotless.bucket"
-           terraform {
-               profile = "my.kotless.user"
-               region = "eu-west-1"
-           }
-       }
-       webapp {
-           lambda {
-               kotless {
-                   packages = setOf("com.example.kotless")
-               }
-           }
-       }
+  - execute the *gradle.kotless.local* task 
+  - 
+- Upload directly to aws using the kotless gradle task
+  - add to *build.gradle.kts*
+  ```yaml
+  kotless {
+    config { 
+        bucket = "my.kotless.bucket"
+  
+        terraform {
+            profile = "my.kotless.user"
+            region = "eu-west-1"
+        }
     }
-    ```
+    webapp {
+        lambda {
+            kotless {
+                packages = setOf("com.example.kotless")
+            }
+        }
+    }
+  } 
+  ```
+  - run gradle *deploy* task
 
 
 ## References
