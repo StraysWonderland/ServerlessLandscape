@@ -279,7 +279,13 @@ When writing the function, simply include the ```java extends MicronautRequestHa
   ```
 If you include the _graalvm_ and _aws-lambda-custom-runtime_ packages, building the project will generate a function.zip archive, that can be uploaded directly to aws lambda.
 
-## Micronaut & Azure functions?
+## Micronaut & Azure functions
+
+- create project via micornaut launch
+  - either micronaut app (confirmed working)
+  - or serverless function
+- add package azure-function or azure-function-http
+
 
 
 # Kotless
