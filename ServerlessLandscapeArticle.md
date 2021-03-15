@@ -298,6 +298,10 @@ consists of:
 - also offers support for ktor or spring boot
 - Gradle Plugin to deploy directly to AWS or test locally
 
+Kotless also allows to work with either the ktor or the spring boot dsl, which is recommendet as kotless own dsl.
+
+The framework ist still in a very early stage as the latest version ist 0.7-beta-5, and thus currently lacks functionalities such as serialization, and support for the latest kotlin version.
+Also, as of writing this article, it only supports AWS lambda, though support for Google and Azure is planned for sometime in the future.
 
 ## Workflow
 - add to gradle.build.kts
@@ -333,7 +337,6 @@ consists of:
         return BreakEvenResponse(breakEvenPoint = breakEvenPoint)
     }
     ```
-
 - testing locally:
   - execute the *gradle.kotless.local* task 
   - 
