@@ -303,6 +303,7 @@ Kotless also allows to work with either the ktor or the spring boot dsl, which i
 The framework ist still in a very early stage as the latest version ist 0.7-beta-5, and thus currently lacks functionalities such as serialization, and support for the latest kotlin version.
 Also, as of writing this article, it only supports AWS lambda, though support for Google and Azure is planned for sometime in the future.
 
+
 ## Workflow
 - add to gradle.build.kts
     ```yaml
@@ -337,6 +338,22 @@ Also, as of writing this article, it only supports AWS lambda, though support fo
         return BreakEvenResponse(breakEvenPoint = breakEvenPoint)
     }
     ```
+- also supports ktor dsl
+    ```kotlin
+    class Server : Kotless() {
+        override fun prepare(app: Application) {
+            app.routing {
+                post("/") {
+                    val breakEvenRequest = call.receive<BreakEvenRequest>()
+                    val breakEvenPoint =
+                            ceil(breakEvenRequest.fixedCosts / 
+                                (breakEvenRequest.price - breakEvenRequest.unitCosts)).toInt()
+                    call.respond(breakEvenPoint)
+                }
+            }
+        }
+    }
+    ```
 - testing locally:
   - execute the *gradle.kotless.local* task 
   - 
@@ -362,6 +379,7 @@ Also, as of writing this article, it only supports AWS lambda, though support fo
   } 
   ```
   - run gradle *deploy* task
+
 
 
 ## References
