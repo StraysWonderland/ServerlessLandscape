@@ -380,6 +380,14 @@ Also, as of writing this article, it only supports AWS lambda, though support fo
   ```
   - run gradle *deploy* task
 
+## Limitations
+As Kotless is still in a very early stage we have encountered a lot of problems, mainly around compatibility with other libraries and with different gradle and kotlin version.
+We have also encountered an issue with the deploy task leading to a malformed terraform file which lead made it impossible to deploy.
+
+## Conclusion
+While kotless in theory provides a simplifyed serverless coding and deployment creation workflow, the erros, incompatiblity, lacking features such as serialization and the slow development time are to be considered.
+Therefore, our conclusion is that Kotless is not yet ready to be used in production.
+
 
 
 ## References
