@@ -823,6 +823,20 @@ AWS lambda is among the most popular serverless function plattform vendors.
 - micronaut package: micronaut-azure-function
   - provides azure functions for running localy, packaging and deploying directly to azure
   - packaging creates zip file to be uploaded manually
+
+```kotlin 
+class Function : AzureFunction() {
+    @FunctionName("breakeven")
+    fun breakeven(
+            @HttpTrigger(
+                    name = "name",
+                    methods = [HttpMethod.POST],
+                    authLevel = AuthorizationLevel.ANONYMOUS)
+            price: Double, unitCosts: Double, fixedCosts: Double): Int {
+        return ceil(fixedCosts / (price - unitCosts)).toInt()
+    }
+}
+```
 ---
 
 # Serverless Framework
