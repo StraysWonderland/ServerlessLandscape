@@ -819,6 +819,10 @@ AWS lambda is among the most popular serverless function plattform vendors.
 ---
 # Azure Functions
 
+
+- micronaut package: micronaut-azure-function
+  - provides azure functions for running localy, packaging and deploying directly to azure
+  - packaging creates zip file to be uploaded manually
 ---
 
 # Serverless Framework
