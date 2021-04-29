@@ -282,9 +282,18 @@ If you include the _graalvm_ and _aws-lambda-custom-runtime_ packages, building 
 ## Micronaut & Azure functions
 
 - create project via micornaut launch
-  - either micronaut app (confirmed working)
+  - either micronaut app
   - or serverless function
 - add package azure-function or azure-function-http
+- package provides gradle deploy task which allows direct deployment to azure
+
+
+## Limitations
+
+The main problem with building functions for aws/azure via micronaut is, that the workflow is a bit convoluted as i.e. the required deploy.sh script is not in any created project by default and that the default package versions can lead to compatibility issues across different versions.
+While these can be easy to spot and fix for developers experienced in working with micronaut, graalvm and aws, for developers newly diving into serverless, these issues can be difficult and frustrating to spot/fix, and will make the workflow fail entirely. 
+Also, the aws package does not provide a deploy task as the azure package does.
+
 
 
 
@@ -722,8 +731,8 @@ AWS lambda is among the most popular serverless function plattform vendors.
   - either create a jar file 
   - or let the aws lambda package create a zip folder to upload
     - project requires a bootstrap file
-    - edit bootsrap file to include
-    - increase Xmxx size to at least 256 in bootstrap file to function properly
+    - ONLY REQUIRED IN OLDER VERSIONS: edit bootsrap file to include
+      - increase Xmxx size to at least 256 in bootstrap file to function properly
     - also set the memory usage on lambda accordingly, either via config file or in the web console
     - generate a native image preferably with a amazon-linux-docker-image
       - micronaut projects that include the aws and graalvm packages include a deploy.sh script and a dockerfile to build a suitable native image for lambda
