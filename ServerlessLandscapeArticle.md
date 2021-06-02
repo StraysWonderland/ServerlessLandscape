@@ -248,7 +248,7 @@ It enables you to write applications in Java, Kotlin or Groovy.
     ```java
     @Controller("/")
     class Handler {
-
+    
         @Consumes(MediaType.APPLICATION_JSON)
         @Post(produces = [MediaType.APPLICATION_JSON])
         fun index(@JsonProperty("price") price: Double,
@@ -430,7 +430,7 @@ Nameworthy examples are:
 - Kubeless
 - Nuclio
 - OpenFaas
-  
+
 We will take a look into a few of those
 
 # Knative
@@ -477,7 +477,7 @@ most active of the platforms
 
 ## cold start buffering
 
---- 
+---
 
 # OpenFaas
 OpenFaaS is a framework for building Serverless functions on top of containers and deployment on any cloud or on-premise.
@@ -686,7 +686,6 @@ riff is an Open Source platform for building and running Functions, Applications
 - CLI to create and deploy functions
 - create knative deployments easily
 - streaming??
-  
 ---
 ---
 
@@ -831,25 +830,32 @@ AWS lambda is among the most popular serverless function plattform vendors.
 
 - micronaut package: micronaut-azure-function
   - provides azure functions for running localy, packaging and deploying directly to azure
-  - packaging creates zip file to be uploaded manually
+  - deployment can be done either via the gradle/maven task provided by the package,
+    - requires a small amount of configuration
+  - or by using the visual studio code azure integration
+    - vs code integration makes it really easy to deploy with just a few clicks and no configuration
+    - currently only supports maven projects
 
-```kotlin 
-class Function : AzureFunction() {
-    @FunctionName("breakeven")
-    fun breakeven(
-            @HttpTrigger(
-                    name = "name",
-                    methods = [HttpMethod.POST],
-                    authLevel = AuthorizationLevel.ANONYMOUS)
-            price: Double, unitCosts: Double, fixedCosts: Double): Int {
-        return ceil(fixedCosts / (price - unitCosts)).toInt()
+    ```kotlin 
+    class Function : AzureFunction() {
+        @FunctionName("breakeven")
+        fun breakeven(
+                @HttpTrigger(
+                        name = "name",
+                        methods = [HttpMethod.POST],
+                        authLevel = AuthorizationLevel.ANONYMOUS)
+                price: Double, unitCosts: Double, fixedCosts: Double): Int {
+            return ceil(fixedCosts / (price - unitCosts)).toInt()
+        }
     }
-}
-```
+    ```
+
+
 ---
 
 # Serverless Framework
 - simplifies configuration and deployment of functions to aws lambda, azure functions etc.
 - streamlines deployment across different vendors
+- offers monitoring and testing tools
 
 ---
