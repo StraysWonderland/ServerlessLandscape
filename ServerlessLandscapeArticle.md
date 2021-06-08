@@ -854,10 +854,11 @@ AWS lambda is among the most popular serverless function plattform vendors.
 ---
 
 # Serverless Framework
+The serverless framework offers tools for the entire serverless application lifecycle, beyond "just" development and deploymont
 - simplifies configuration and deployment of functions to aws lambda, azure functions etc.
+- allows scaffolding of projects
 - streamlines deployment across different vendors
 - offers monitoring and testing tools
-
 
 ## workflow
 to deploy via serverless, a ```serverless.yml``` file is required.
