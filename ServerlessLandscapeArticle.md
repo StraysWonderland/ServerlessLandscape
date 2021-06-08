@@ -407,7 +407,154 @@ Therefore, our conclusion is that Kotless is not yet ready to be used in product
 
  => problem with request => @introspection?
 ---
+Deployment on FAAS vendors
+Probably the most common approach to serverless is to deploy your code to one of the popular serverless function platform vendors such as AWS lambda, Azure Functions or Google Cloud Functions.
 
+These vendors offer you a platform to which you, with a little deployment configuration, can directly deploy your code and the platform takes care of and hides all the required infrastructure configuration from the developer.
+The configuration of your deployment usually contains vendor specific commands.
+
+# AWS lambda
+AWS lambda is among the most popular serverless function plattform vendors.
+
+- upload code via CLI or link to github repo
+- supports various different runtimes such as java, nodejs, python, Go ...
+  - custom runtimes can be specified too
+  - micronaut and quarkus provide packages for aws lambda with their own runtime for native executables
+
+## workflow
+- create functions either via the aws console or via the CLI called SAM
+    - SAM provides commands for initialising, building and deploying functions as well as local testing.
+- for using the web console
+  - create a jar or zip file and upload it
+
+### using Microframeworks
+- Micronaut and Quarkus offer packages to build functions optimised for lambda
+- Application can be deployed either using the lambda java runtime, or by bulding a native executable with a custom runtime provided by the corresponding package
+  - easy native packaging and deployment
+  - ```bash mn create-app info.novatec.break-even --lang=kotlin --features aws-lambda,graalvm ```
+  - either create a jar file 
+  - or let the aws lambda package create a zip folder to upload
+    - project requires a bootstrap file
+    - ONLY REQUIRED IN OLDER VERSIONS: edit bootsrap file to include
+      - increase Xmxx size to at least 256 in bootstrap file to function properly
+    - also set the memory usage on lambda accordingly, either via config file or in the web console
+    - generate a native image preferably with a amazon-linux-docker-image
+      - micronaut projects that include the aws and graalvm packages include a deploy.sh script and a dockerfile to build a suitable native image for lambda
+  - use lambdas java runtime or custom runtime for native executables
+  - both frameworks also provide scripts to test application localy via SAM
+  
+  
+
+###  Contents of functions.zip
+#### Using graalvm package
+- contents of function.zip using graalvm to create a executable:
+    - bootstrap
+        ```bash 
+        #!/bin/sh
+        set -euo pipefail
+        ./break-even-mn-lambda -Xmx512m
+        ```
+    - break-even-mn-lambda binary file
+
+#### Generating a function.zip without graalvm
+```  
+  - io
+    - quarkus 
+      - ...
+  - javax
+    - ...
+  - lib
+    - com.amazonaws....
+    - ...
+  - META-INF
+    - services
+    - MANIFEST.MF
+  - info\novatec\
+    - BreakEvenRequestHandler.class
+  - application.properties
+```
+### using SAM
+  - test, build and deploy via SAM
+    - local test:
+        - initiate api
+            ```bash
+            sam local start-api
+            ```
+        - single invocations
+            ```bash
+            sam local invoke "break-even-kotlin" -e events/event.json
+            ```
+    - build: 
+        ```bash
+            sam build
+        ```
+    - deploy: 
+        ```bash
+            sam deploy --guided
+        ```
+   
+- requires a yaml file
+    ```yaml
+    AWSTemplateFormatVersion: '2010-09-09'
+    Transform: AWS::Serverless-2016-10-31
+    Description: AWS Serverless Micronaut API - example.micronaut::prime-finder
+    Globals:
+    Api:
+        EndpointConfiguration: REGIONAL
+    Resources:
+    BreakEvenKotlin:
+        Type: AWS::Serverless::Function
+        Properties:
+        Handler: not.used.in.provided.runtime
+        Runtime: provided
+        CodeUri: build/function.zip
+        MemorySize: 128
+        Policies: AWSLambdaBasicExecutionRole
+        Timeout: 15
+        Events:
+            GetResource:
+            Type: Api
+            Properties:
+                Path: /{proxy+}
+                Method: any
+    Outputs:
+        BreakEvenKotlin:
+            Description: URL for application
+            Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/find-primes-below/{number}'
+            Export:
+            Name: BreakEvenKotlin
+    ```
+
+
+## Performance
+
+
+---
+# Azure Functions
+
+
+- micronaut package: micronaut-azure-function
+  - provides azure functions for running localy, packaging and deploying directly to azure
+  - deployment can be done either via the gradle/maven task provided by the package,
+    - requires a small amount of configuration
+  - or by using the visual studio code azure integration
+    - vs code integration makes it really easy to deploy with just a few clicks and no configuration
+    - currently only supports maven projects
+
+    ```kotlin 
+    class Function : AzureFunction() {
+        @FunctionName("breakeven")
+        fun breakeven(
+                @HttpTrigger(
+                        name = "name",
+                        methods = [HttpMethod.POST],
+                        authLevel = AuthorizationLevel.ANONYMOUS)
+                price: Double, unitCosts: Double, fixedCosts: Double): Int {
+            return ceil(fixedCosts / (price - unitCosts)).toInt()
+        }
+    }
+    ```
+--- 
 # Deployment Anywhere
 - use language & infrastructure youre familiar with
 - one system to manage and operate for all applications
@@ -700,155 +847,6 @@ Kubeless Includes:
 - Prometheus monitoring of functions calls and function latency by default
 - Serverless Framework plugin
 
-
-
-# Deployment on FAAS vendors
-Probably the most common approach to serverless is to deploy your code to one of the popular serverless function platform vendors such as AWS lambda, Azure Functions or Google Cloud Functions.
-
-These vendors offer you a platform to which you, with a little deployment configuration, can directly deploy your code and the platform takes care of and hides all the required infrastructure configuration from the developer.
-The configuration of your deployment usually contains vendor specific commands.
-
-# AWS lambda
-AWS lambda is among the most popular serverless function plattform vendors.
-
-- upload code via CLI or link to github repo
-- supports various different runtimes such as java, nodejs, python, Go ...
-  - custom runtimes can be specified too
-  - micronaut and quarkus provide packages for aws lambda with their own runtime for native executables
-
-## workflow
-- create functions either via the aws console or via the CLI called SAM
-    - SAM provides commands for initialising, building and deploying functions as well as local testing.
-- for using the web console
-  - create a jar or zip file and upload it
-
-### using Microframeworks
-- Micronaut and Quarkus offer packages to build functions optimised for lambda
-- Application can be deployed either using the lambda java runtime, or by bulding a native executable with a custom runtime provided by the corresponding package
-  - easy native packaging and deployment
-  - ```bash mn create-app info.novatec.break-even --lang=kotlin --features aws-lambda,graalvm ```
-  - either create a jar file 
-  - or let the aws lambda package create a zip folder to upload
-    - project requires a bootstrap file
-    - ONLY REQUIRED IN OLDER VERSIONS: edit bootsrap file to include
-      - increase Xmxx size to at least 256 in bootstrap file to function properly
-    - also set the memory usage on lambda accordingly, either via config file or in the web console
-    - generate a native image preferably with a amazon-linux-docker-image
-      - micronaut projects that include the aws and graalvm packages include a deploy.sh script and a dockerfile to build a suitable native image for lambda
-  - use lambdas java runtime or custom runtime for native executables
-  - both frameworks also provide scripts to test application localy via SAM
-  
-  
-
-###  Contents of functions.zip
-#### Using graalvm package
-- contents of function.zip using graalvm to create a executable:
-    - bootstrap
-        ```bash 
-        #!/bin/sh
-        set -euo pipefail
-        ./break-even-mn-lambda -Xmx512m
-        ```
-    - break-even-mn-lambda binary file
-
-#### Generating a function.zip without graalvm
-```  
-  - io
-    - quarkus 
-      - ...
-  - javax
-    - ...
-  - lib
-    - com.amazonaws....
-    - ...
-  - META-INF
-    - services
-    - MANIFEST.MF
-  - info\novatec\
-    - BreakEvenRequestHandler.class
-  - application.properties
-```
-### using SAM
-  - test, build and deploy via SAM
-    - local test:
-        - initiate api
-            ```bash
-            sam local start-api
-            ```
-        - single invocations
-            ```bash
-            sam local invoke "break-even-kotlin" -e events/event.json
-            ```
-    - build: 
-        ```bash
-            sam build
-        ```
-    - deploy: 
-        ```bash
-            sam deploy --guided
-        ```
-   
-- requires a yaml file
-    ```yaml
-    AWSTemplateFormatVersion: '2010-09-09'
-    Transform: AWS::Serverless-2016-10-31
-    Description: AWS Serverless Micronaut API - example.micronaut::prime-finder
-    Globals:
-    Api:
-        EndpointConfiguration: REGIONAL
-    Resources:
-    BreakEvenKotlin:
-        Type: AWS::Serverless::Function
-        Properties:
-        Handler: not.used.in.provided.runtime
-        Runtime: provided
-        CodeUri: build/function.zip
-        MemorySize: 128
-        Policies: AWSLambdaBasicExecutionRole
-        Timeout: 15
-        Events:
-            GetResource:
-            Type: Api
-            Properties:
-                Path: /{proxy+}
-                Method: any
-    Outputs:
-        BreakEvenKotlin:
-            Description: URL for application
-            Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/find-primes-below/{number}'
-            Export:
-            Name: BreakEvenKotlin
-    ```
-
-
-## Performance
-
-
----
-# Azure Functions
-
-
-- micronaut package: micronaut-azure-function
-  - provides azure functions for running localy, packaging and deploying directly to azure
-  - deployment can be done either via the gradle/maven task provided by the package,
-    - requires a small amount of configuration
-  - or by using the visual studio code azure integration
-    - vs code integration makes it really easy to deploy with just a few clicks and no configuration
-    - currently only supports maven projects
-
-    ```kotlin 
-    class Function : AzureFunction() {
-        @FunctionName("breakeven")
-        fun breakeven(
-                @HttpTrigger(
-                        name = "name",
-                        methods = [HttpMethod.POST],
-                        authLevel = AuthorizationLevel.ANONYMOUS)
-                price: Double, unitCosts: Double, fixedCosts: Double): Int {
-            return ceil(fixedCosts / (price - unitCosts)).toInt()
-        }
-    }
-    ```
 
 
 ---
