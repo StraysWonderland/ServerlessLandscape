@@ -858,4 +858,29 @@ AWS lambda is among the most popular serverless function plattform vendors.
 - streamlines deployment across different vendors
 - offers monitoring and testing tools
 
+
+## workflow
+to deploy via serverless, a ```serverless.yml``` file is required.
+This is automatically added when creating a scaffold through the serverless cli will, or can be added manually and a minimal example looks as follows
+
+```yaml
+
+    frameworkVersion: '2'
+
+    provider:
+    name: aws
+    runtime: java8
+    lambdaHashingVersion: 20201221
+
+    # you can overwrite defaults here
+    stage: dev
+    region: us-east-1
+
+    package:
+    artifact: target/hello-dev.jar
+
+    functions:
+    hello:
+        handler: com.serverless.Handler
+```
 ---
