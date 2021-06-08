@@ -854,7 +854,7 @@ AWS lambda is among the most popular serverless function plattform vendors.
 ---
 
 # Serverless Framework
-The serverless framework offers tools for the entire serverless application lifecycle, beyond "just" development and deploymont
+The serverless framework offers tools for the entire serverless application lifecycle, beyond "just" development and deployment
 - simplifies configuration and deployment of functions to aws lambda, azure functions etc.
 - allows scaffolding of projects
 - streamlines deployment across different vendors
@@ -884,4 +884,34 @@ This is automatically added when creating a scaffold through the serverless cli 
     hello:
         handler: com.serverless.Handler
 ```
+creating a scaffold via the cli is done via the ```serverless create``` command and requires  chosing a  template for the desired provider and language.
+
+For example creating a kotlin maven project for aws is done with the following command:
+```bash
+serverless create --template aws-kotlin-jvm-maven
+```
+
+run ```bash serverless create --help ``` to view the available templates
+
+```bash
+Available templates: 
+    "aws-clojure-gradle", "aws-clojurescript-gradle", "aws-nodejs", "aws-nodejs-docker", "aws-nodejs-typescript", "aws-alexa-typescript", "aws-nodejs-ecma-script", "aws-python"
+    "aws-python3", "aws-python-docker", "aws-groovy-gradle", "aws-java-maven", "aws-java-gradle", "aws-kotlin-jvm-maven", "aws-kotlin-jvm-gradle", "aws-kotlin-jvm-gradle-kts"
+    "aws-kotlin-nodejs-gradle", "aws-scala-sbt", "aws-csharp", "aws-fsharp", "aws-go", "aws-go-dep", "aws-go-mod", "aws-ruby"
+    "aws-provided"
+    "tencent-go", "tencent-nodejs", "tencent-python", "tencent-php"
+    "azure-csharp", "azure-nodejs", "azure-nodejs-typescript", "azure-python"
+    "cloudflare-workers", "cloudflare-workers-enterprise", "cloudflare-workers-rust"
+    "fn-nodejs", "fn-go"
+    "google-nodejs", "google-python", "google-go"
+    "kubeless-python", "kubeless-nodejs"
+    "knative-docker"
+    "openwhisk-java-maven", "openwhisk-nodejs", "openwhisk-php", "openwhisk-python", "openwhisk-ruby", "openwhisk-swift"
+    "spotinst-nodejs", "spotinst-python", "spotinst-ruby", "spotinst-java8"
+    "twilio-nodejs"
+    "aliyun-nodejs"
+    "plugin"
+    "hello-world"
+```
+
 ---
