@@ -43,6 +43,7 @@ Quarkus is a full-stack, Kubernetes-native Java framework mainly aimed at buildi
   - packages to gather metrics 
   - annotations to set up tests easily
 
+Quarkus also provides a set of best-of-Breed Libraries and Standards to extend your functions with additional metric collection, health services or security tools.
 
 ### Scaffolding
 Quarkus allows to easily setup a scaffold project that includes a simple hello world function and a test.
@@ -85,8 +86,8 @@ Making changes to the code will automatically and instantly recompile and update
 ```
 
 ### Testing
-Example of creating a Test for the BreakEvenFunction.
-Quarkus annotations for easy setup.
+Here is an example of creating a test for the BreakEvenFunction.
+Quarkus provides annotations for easy setup.
 
 ```java
 @Inject
@@ -119,64 +120,6 @@ Explicit test run possible as well via:
 ./mvnw test
 ```
 
-
-### Extensions: Health & Metrics
-Quarkus provides a set if bst-of-Breed Libraries and Standards to extend your functions with additional metric collection, health services or security tools.
-
-#### Adding the packages
-
-```bash
-./mvnw quarkus:add-extension -Dextensions="metrics"
-```
-
-```bash
-./mvnw quarkus:add-extension -Dextensions="health"
-```
-
-Or add following to pom.xml
-```xml
-<dependency>
-    <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-smallrye-health</artifactId>
-</dependency>
-```
-
-#### Anotation
-- Adding a timer metric
-    ```java
-    @Timed(name = "breakEvenTimer", description = "execution time of breakEvenFunction",
-                unit = MetricUnits.MILLISECONDS)
-    ```
-
-- the liveness check accessible at /health/live
-    ```java
-    @Liveness
-    ```
-
-- the readiness check accessible at /health/ready
-    ```java 
-    @Readiness
-    ```
-
-#### Implementing Health check
-
-```java
-@Liveness
-@ApplicationScoped
-public class SimpleHealthCheck 
-    implements HealthCheck {
-
-    @Override
-    public HealthCheckResponse call() {
-        return HealthCheckResponse.
-            up("Simple health check");
-    }
-}
-```
-#### Review generated metrics
-```
-localhost:8080/metrics/
-```
 
 ### Run, Package & Deploy
 
@@ -877,3 +820,6 @@ Available templates:
 ```
 
 ---
+
+# Conclusion about Serverless
+

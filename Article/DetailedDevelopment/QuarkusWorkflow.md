@@ -1,4 +1,3 @@
-
 # Quarkus
 Quarkus is a full-stack, Kubernetes-native Java framework mainly aimed at building microservices and tailored for Java virtual machines (JVMs) and native compilation via GraalVM, optimising Java specifically for containers and enabling it to become an effective platform for serverless, cloud, and Kubernetes environments.
 
@@ -54,7 +53,7 @@ public BreakEvenResponse calculate(@QueryParam double price,
 }
 ```
 
-### Run the Application in development mode with hot reload
+## Run the Application in development mode with hot reload
 Making changes to the code will automatically and instantly recompile and update the application, making local testing easy.
 
 ```bash
@@ -96,22 +95,34 @@ Explicit test run possible as well via:
 ./mvnw test
 ```
 
-## Extensions: Health
+
+## Extensions: Health & Metrics
 Quarkus provides a set if bst-of-Breed Libraries and Standards to extend your functions with additional metric collection, health services or security tools.
 
-### Adding the package
+### Adding the packages
+
+```bash
+./mvnw quarkus:add-extension -Dextensions="metrics"
+```
+
 ```bash
 ./mvnw quarkus:add-extension -Dextensions="health"
 ```
 
-### Or add following to pom.xml
+Or add following to pom.xml
 ```xml
 <dependency>
     <groupId>io.quarkus</groupId>
     <artifactId>quarkus-smallrye-health</artifactId>
 </dependency>
 ```
+
 ### Anotation
+- Adding a timer metric
+    ```java
+    @Timed(name = "breakEvenTimer", description = "execution time of breakEvenFunction",
+                unit = MetricUnits.MILLISECONDS)
+    ```
 
 - the liveness check accessible at /health/live
     ```java
@@ -138,35 +149,19 @@ public class SimpleHealthCheck
     }
 }
 ```
-
-## Extensions: Metrics
-
-### Adding the package
-```bash
-./mvnw quarkus:add-extension -Dextensions="metrics"
-```
-
-### Anotation
-```java
-@Timed(name = "breakEvenTimer", description = "execution time of breakEvenFunction",
-            unit = MetricUnits.MILLISECONDS)
-```
-
 ### Review generated metrics
 ```
 localhost:8080/metrics/
 ```
 
-## Running & Packaging
+## Run, Package & Deploy
 
-### using maven
-
-- compile in development mode
+### compile in development mode
 ```bash
 ./mvnw compile quarkus:dev
 ```
 
-- package into native executable
+### package into native executable
 ```bash
  ./mvnw package -Pnative
 ```
@@ -182,7 +177,7 @@ localhost:8080/metrics/
     </profiles>
     ```
 
-### - using dockerfile
+### using dockerfile
 
 ```yaml
 ## Stage 1 : build with maven builder image with native capabilities
@@ -203,9 +198,4 @@ EXPOSE 8080
 CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
 ```
 
-#### References
-
-- [Red Hat: Quarkus introduction](https://developers.redhat.com/blog/2019/03/07/quarkus-next-generation-kubernetes-native-java-framework/)
-
-- [Red Hat: what is quarkus](https://www.redhat.com/en/topics/cloud-native-apps/what-is-quarkus)
-
+---
