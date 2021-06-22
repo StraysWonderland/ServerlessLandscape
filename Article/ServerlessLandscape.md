@@ -618,9 +618,8 @@ Load testing on micronaut break-even function
 | :----: |:------:|:----:|:---:|
 | 16     | 53     | 5    | 92  |
 
-- ![openfaas test](../Images/monitoring_breakeven_kotlin_openfaas.PNG) 
-- ![openfaas test](../Images/response_times_openfaas.PNG) 
-
+![openfaas test](/Images/monitoring_breakeven_kotlin_openfaas.PNG) 
+![openfaas test](/Images/response_times_openfaas.PNG) 
 
 ---
 ---
