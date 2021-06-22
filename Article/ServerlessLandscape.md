@@ -14,125 +14,95 @@ Serverless in the course of this article will be defined as paradigm to simplify
 
 and where this paradigm enables event triggered autoscaling and scale to zero.
 
-# Development
+---
+# Development: using Microframeworks
 Using Microframeworks that ease the creation of serverless functions has the benefit of reusing the skillset, knowledge and workflow of developers familiar with microservices.
 No need to switch to a new framework or workflow if the framework you are using for your microservices also is suited for the creation of serverless functions.
 
 A major benefit of using microframeworks to develop serverless functions is that developers reuse their knowledge and skillset of creating microservices.
 There is no new language or development method to "learn" and the workflow remains the same, so that creating serverless functions are seemlessly integrated into the usual workflow.
 
-
+---
 ## Quarkus
+---
 Quarkus is a full-stack, Kubernetes-native Java framework mainly aimed at building microservices and tailored for Java virtual machines (JVMs) and native compilation via GraalVM, optimising Java specifically for containers and enabling it to become an effective platform for serverless, cloud, and Kubernetes environments.
 
 
-- Java Microframework optimized for kubernetes and graalVM
+### Benefits
+
 - "Designed for Developers"
-  - Hot reload
-  -  Unified imperative and reactive programming
-  -  Unified configuration
-  -  Easy native executable generation
-  -  Best-of-Breed Libraries and Standards
+- Hot reload
+- Unified imperative and reactive programming
+- Unified configuration
+- Easy native executable generation
+- best-of-Breed Libraries and Standards to extend your functions withadditional metric collection, health services or security tools.
 - Fast Startup (tens of milliseconds)
   - allows automatic scaling up and down of microservices on containers and Kubernetes as well as FaaS on-the-spot execution
 - Low memory utilization
   - Low memory utilization helps optimize container density
 - Smaller application and container image footprint
-- testing support:
+  
+- #### Project scaffolding
+  - Quarkus allows to easily setup a scaffold project that includes a simple hello world function and a test. This boilerplate project helps to quickly set-up a function with minimal effort.
+    ```bash
+    mvn io.quarkus:quarkus-maven-plugin:1.1.1.Final:create \
+        -DprojectGroupId=info.novatec \
+        -DprojectArtifactId=breakevencalculator \
+        -DclassName="info.novatec.BreakEvenCalculator" \
+        -Dpath="/run"
+    ```
+
+- #### testing support:
   - hot reload
   - packages to gather metrics 
   - annotations to set up tests easily
-
-Quarkus also provides a set of best-of-Breed Libraries and Standards to extend your functions with additional metric collection, health services or security tools.
-
-### Scaffolding
-Quarkus allows to easily setup a scaffold project that includes a simple hello world function and a test.
-This boilerplate project helps to quickly set-up a function with minimal effort.
-
-```bash
-mvn io.quarkus:quarkus-maven-plugin:1.1.1.Final:create \
-    -DprojectGroupId=info.novatec \
-    -DprojectArtifactId=breakevencalculator \
-    -DclassName="info.novatec.BreakEvenCalculator" \
-    -Dpath="/run"
-```
-
-- or create via https://code.quarkus.io/
-
+    ```java
+    @Inject
+    BreakEvenResponse response;
+    @ParameterizedTest
+    @CsvSource({
+            "20.00, 100.00, 10.00, 10",
+            "6.00, 1000.00, 4.00, 500",
+            "2.30, 333.33, 2.10, 1667",
+            "3.00, 8000.00, 1.50, 5334"}
+    )
+    public void testBreakEvenFunction(double price, double fixedCost, doubleunitCost, int breakEvenPoint) {
+        response.breakEvenPoint = breakEvenPoint;
+        given().queryParam("price", price)
+                .queryParam("fixedCost", fixedCost)
+                .queryParam("unitCost", unitCost)
+                .when().get("/run")
+                .then()
+                .statusCode(200)
+                .equals(response);
+    }
+    ```
 ### BreakEvenFunction
-Example of a simple BreakEvenFunction achieved via Quarkus.
 
+Example of a simple BreakEvenFunction achieved via Quarkus.
 No Additional code or classes ( no application class either ) needed.
 
-Spring like, self-explanatory annotations:
-
-```java
-@GET
-@Produces({MediaType.APPLICATION_JSON})
-public BreakEvenResponse calculate(@QueryParam double price, 
-                                   @QueryParam double fixedCost, 
-                                   @QueryParam double unitCost) { 
-    int breakEvenPoint =  (int) Math.ceil(fixedCost / (price - unitCost));
-    BreakEvenResponse response = new BreakEvenResponse(breakEvenPoint);
-    return response;
-}
-```
-
-### Run the Application in development mode with hot reload
-Making changes to the code will automatically and instantly recompile and update the application, making local testing easy.
-
-```bash
-./mvnw compile quarkus:dev
-```
-
-### Testing
-Here is an example of creating a test for the BreakEvenFunction.
-Quarkus provides annotations for easy setup.
-
-```java
-@Inject
-BreakEvenResponse response;
-
-@ParameterizedTest
-@CsvSource({
-        "20.00, 100.00, 10.00, 10",
-        "6.00, 1000.00, 4.00, 500",
-        "2.30, 333.33, 2.10, 1667",
-        "3.00, 8000.00, 1.50, 5334"}
-)
-public void testBreakEvenFunction(double price, double fixedCost, double unitCost, int breakEvenPoint) {
-    response.breakEvenPoint = breakEvenPoint;
-    given().queryParam("price", price)
-            .queryParam("fixedCost", fixedCost)
-            .queryParam("unitCost", unitCost)
-            .when().get("/run")
-            .then()
-            .statusCode(200)
-            .equals(response);
-}
-```
-
-#### Run the test
-when compiling the quarkus project, all tests will be run automatically.
-
-Explicit test run possible as well via:
-```bash
-./mvnw test
-```
+- Spring like, self-explanatory annotations:
+    ```java
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public BreakEvenResponse calculate(@QueryParam double price, 
+                                    @QueryParam double fixedCost, 
+                                    @QueryParam double unitCost) { 
+        int breakEvenPoint =  (int) Math.ceil(fixedCost / (price - unitCost));
+        BreakEvenResponse response = new BreakEvenResponse(breakEvenPoint);
+        return response;
+    }
+    ```
 
 
-### Run, Package & Deploy
+### package into native executable
 
-#### compile in development mode
-```bash
-./mvnw compile quarkus:dev
-```
-
-#### package into native executable
-```bash
- ./mvnw package -Pnative
-```
--   add to pom.xml
+- either package on your machine
+    ```bash
+    ./mvnw package -Pnative
+    ```
+- add to pom.xml
     ```xml
     <profiles>
         <profile>
@@ -144,52 +114,41 @@ Explicit test run possible as well via:
     </profiles>
     ```
 
-#### using dockerfile
+- or use Dockerimage
+    ```yaml
+    ## Stage 1 : build with maven builder image with native capabilities
+    FROM quay.io/quarkus/centos-quarkus-maven:19.2.1 AS build
+    COPY src /usr/src/app/src
+    COPY pom.xml /usr/src/app
+    USER root
+    RUN chown -R quarkus /usr/src/app
+    USER quarkus
+    RUN mvn -f /usr/src/app/pom.xml -Pnative clean package
 
-```yaml
-## Stage 1 : build with maven builder image with native capabilities
-FROM quay.io/quarkus/centos-quarkus-maven:19.2.1 AS build
-COPY src /usr/src/app/src
-COPY pom.xml /usr/src/app
-USER root
-RUN chown -R quarkus /usr/src/app
-USER quarkus
-RUN mvn -f /usr/src/app/pom.xml -Pnative clean package
-
-## Stage 2 : create the docker final image
-FROM registry.access.redhat.com/ubi8/ubi-minimal
-WORKDIR /work/
-COPY --from=build /usr/src/app/target/*-runner /work/application
-RUN chmod 775 /work
-EXPOSE 8080
-CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
-```
+    ## Stage 2 : create the docker final image
+    FROM registry.access.redhat.com/ubi8/ubi-minimal
+    WORKDIR /work/
+    COPY --from=build /usr/src/app/target/*-runner /work/application
+    RUN chmod 775 /work
+    EXPOSE 8080
+    CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
+    ```
 
 ---
-
 ## Micronaut
+---
 "A modern, JVM-based, full-stack framework for building modular, easily testable microservice and serverless applications."
 
 It enables you to write applications in Java, Kotlin or Groovy.
 
-- tailored for graalvm
+### Benefits
+
+- also tailored for graalvm
 - fast startup time
 - reduced memory footprint
--  compile time dependency injection instead of reflection
+- compile time dependency injection instead of reflection
+- provides packages to ease development for different tasks
 
-    ```java
-    @Controller("/")
-    class Handler {
-    
-        @Consumes(MediaType.APPLICATION_JSON)
-        @Post(produces = [MediaType.APPLICATION_JSON])
-        fun index(@JsonProperty("price") price: Double,
-                @JsonProperty("fixedCosts") fixedCosts: Double,
-                @JsonProperty("unitCosts") unitCosts: Double): Int {
-            return ceil(fixedCosts / (price - unitCosts)).toInt()
-        }
-    }
-    ```
 ### Micronaut & AWS Lambda
 Micronaut offers packages/features to create functions designed for deployment on aws lambda.
 These packages are mainly the "aws-lambda" package, and when planing to deploy a native executable created via graalvm, also the "graal-vm" and "aws-lambda-custom-runtie" packages.
@@ -199,7 +158,7 @@ Either add these packages to new projects via the _Micronaut_Launch_ website or 
 When writing the function, simply include the ```java extends MicronautRequestHandle<T,T> ```
   ```java
   @Introspected
-  public class BreakEvenRequestHandler extends MicronautRequestHandler<BreakEvenRequest, BreakEvenResponse> {  // <1>
+  public class BreakEvenRequestHandler extends MicronautRequestHandler<BreakEvenRequest, BreakEvenResponse> { 
   
       @Override
       public BreakEvenResponse execute(BreakEvenRequest request) {
@@ -227,9 +186,9 @@ While these can be easy to spot and fix for developers experienced in working wi
 Also, the aws package does not provide a deploy task as the azure package does.
 
 
-
-
+---
 ## Kotless
+---
 "Kotlin serverless framework"
 
 Focus on simplifying serverless deployment creation workflow
@@ -328,9 +287,6 @@ We have also encountered an issue with the deploy task leading to a malformed te
 ### Conclusion
 While kotless in theory provides a simplifyed serverless coding and deployment creation workflow, the erros, incompatiblity, lacking features such as serialization and the slow development time are to be considered.
 Therefore, our conclusion is that Kotless is not yet ready to be used in production.
-
-#### KOTLESS GRAALVM SUPPORT IN BETA
-- [kotless guide](https://xscode.com/JetBrains/kotless)
 
 ---
 # Deployment on FAAS vendors
@@ -462,7 +418,7 @@ AWS lambda is among the most popular serverless function plattform vendors.
   - or by using the visual studio code azure integration
     - vs code integration makes it really easy to deploy with just a few clicks and no configuration
     - currently only supports maven projects
-
+- While Azure does support native images packaged by graalvm, creating and uploading one is not as straightforward as with the packages provided for aws by quarkus and micronaut
     ```kotlin 
     class Function : AzureFunction() {
         @FunctionName("breakeven")
@@ -478,7 +434,7 @@ AWS lambda is among the most popular serverless function plattform vendors.
     ```
 --- 
 # Deployment Anywhere
-- use language & infrastructure youre familiar with
+- use language & infrastructure you`re familiar with
 - one system to manage and operate for all applications
 - only serverless from a user perspective  
 - avoid vendor lock-in
@@ -662,13 +618,8 @@ Load testing on micronaut break-even function
 | :----: |:------:|:----:|:---:|
 | 16     | 53     | 5    | 92  |
 
-![openfaas test](Images/monitoring_breakeven_kotlin_openfaas.PNG) 
-![openfaas test](Images/response_times_openfaas.PNG) 
-
-## References
-
-- [openfaas on minikube](https://medium.com/faun/getting-started-with-openfaas-on-minikube-634502c7acdf)
-- [what is openfaas and why is it an alternative to aws lambda](https://www.contino.io/insights/what-is-openfaas-and-why-is-it-an-alternative-to-aws-lambda-an-interview-with-creator-alex-ellis)
+- ![openfaas test](../Images/monitoring_breakeven_kotlin_openfaas.PNG) 
+- ![openfaas test](../Images/response_times_openfaas.PNG) 
 
 
 ---
