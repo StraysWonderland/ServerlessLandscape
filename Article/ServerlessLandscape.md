@@ -689,11 +689,8 @@ So wether you want to deploy serverless functions on a cloud vendor architecture
 
 
 ---
+## Kubeless
 ---
-
----
-
-# Kubeless
 Kubeless is a Kubernetes-native serverless framework that lets you deploy functions without having to worry about the underlying infrastructure. It is designed to be deployed on top of a Kubernetes cluster and take advantage of all the great Kubernetes primitives. If you are looking for an open source serverless solution that clones what you can find on AWS Lambda, Azure Functions, and Google Cloud Functions, Kubeless is for you!
 
 Kubeless Includes:
@@ -709,6 +706,7 @@ Kubeless Includes:
 ---
 
 # Serverless Framework
+---
 The serverless framework offers tools for the entire serverless application lifecycle, beyond "just" development and deployment
 - simplifies configuration and deployment of functions to aws lambda, azure functions etc.
 - allows scaffolding of projects
